@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/yarn,windows,composer,sublimetext,jetbrains
-# Edit at https://www.toptal.com/developers/gitignore?templates=yarn,windows,composer,sublimetext,jetbrains
+# Created by https://www.toptal.com/developers/gitignore/api/php,nodejs,yarn,windows,composer,sublimetext,jetbrains,vscode,dotenv
+# Edit at https://www.toptal.com/developers/gitignore?templates=php,nodejs,yarn,windows,composer,sublimetext,jetbrains,vscode,dotenv
 
 ### Composer ###
 composer.phar
@@ -8,6 +8,9 @@ composer.phar
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 # composer.lock
+
+### dotenv ###
+.env
 
 ### JetBrains ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -19,6 +22,9 @@ composer.phar
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
+# AWS User-specific
+.idea/**/aws.xml
 
 # Generated files
 .idea/**/contentModel.xml
@@ -112,6 +118,10 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
 
+#!! ERROR: nodejs is undefined. Use list command to see defined gitignore types !!#
+
+#!! ERROR: php is undefined. Use list command to see defined gitignore types !!#
+
 ### SublimeText ###
 # Cache files for Sublime Text
 *.tmlanguage.cache
@@ -127,6 +137,7 @@ fabric.properties
 
 # SFTP configuration file
 sftp-config.json
+sftp-config-alt*.json
 
 # Package control specific files
 Package Control.last-run
@@ -143,6 +154,8 @@ bh_unicode_properties.cache
 # Sublime-github package stores a github token in this file
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
+
+#!! ERROR: vscode is undefined. Use list command to see defined gitignore types !!#
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -173,28 +186,26 @@ $RECYCLE.BIN/
 ### yarn ###
 # https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 
-# .yarn/unplugged and .yarn/build-state.yml should likely always be ignored since
-# they typically hold machine-specific build artifacts. Ignoring them might however
-# prevent Zero-Installs from working (to prevent this, set enableScripts to false).
-.yarn/unplugged
-.yarn/build-state.yml
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
 
-# .yarn/cache and .pnp.* may be safely ignored, but you'll need to run yarn install
-# to regenerate them between each branch switch.
-# Uncomment the following lines if you're not using Zero-Installs:
-# .yarn/cache
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
+
+# and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/yarn,windows,composer,sublimetext,jetbrains
+# End of https://www.toptal.com/developers/gitignore/api/php,nodejs,yarn,windows,composer,sublimetext,jetbrains,vscode,dotenv# End of https://www.toptal.com/developers/gitignore/api/yarn,windows,composer,sublimetext,jetbrains,vscode,dotenv
 
-# hello-php configs
-configs/*.php
-
-# nodejs modules
+# NodeJS
 node_modules/
 
-# phinx
-*.db
+# Docker
+.docker
 
-# docker
-.docker/
+# Configs
+configs/*.php

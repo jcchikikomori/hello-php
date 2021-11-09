@@ -102,22 +102,14 @@ class App
         } else {
             $composer = ROOT . 'vendor/autoload.php';
             $configs = ROOT . 'configs' . DIRECTORY_SEPARATOR;
-            $config = $configs . 'system.php'; // check default config
+            // $config = $configs . 'system.php'; // check default config
             /**
              * The Composer auto-loader (official way to load Composer contents)
              * to load external stuff automatically
              */
             (@include_once $composer) or die("The COMPOSER file " . $composer . " might be corrupted or missing.");
-            /**
-             * LOAD ALL CONFIGS ON configs directory
-             */
-            if (!file_exists($config)) {
-                die("File " . $config .
-                    " might be corrupted or missing.<br />Please do <code>composer dump-autoload</code>");
-            } else {
-                foreach (glob($configs . '*.php') as $configs) {
-                    include_once $configs;
-                }
+            foreach (glob($configs . '*.php') as $configs) {
+                include_once $configs;
             }
         }
 
@@ -140,9 +132,7 @@ class App
          * - define('ENVIRONMENT', 'web'); For Web Hosting / Deployment
          * (don't use if you are about to go development/offline)
          */
-        // echo var_dump(getenv('ENVIRONMENT'));
-        if (!defined('ENVIRONMENT') && empty(getenv('ENVIRONMENT'))) {
-            // exit('ENV Error: ENVIRONMENT variable is missing');
+        if (!getenv('ENVIRONMENT', true)) {
             exit("The application environment is not set correctly. Please check your .env file");
         }
 
@@ -179,16 +169,16 @@ class App
 
         /**
          * Multi-user default value
-         */
-        if (!defined('MULTI_USER')) {
-            define('MULTI_USER', false);
+         */;
+        if (!getenv('MULTI_USER', true)) {
+            exit("The application environment is not set correctly. Please check your .env file");
         }
 
         /**
          * Multi-user
          * Default is false
          */
-        $this->multi_user_status = MULTI_USER;
+        $this->multi_user_status = getenv('MULTI_USER', true);
 
         /**
          * Fixed Paths
@@ -215,8 +205,8 @@ class App
         }
 
         // You can test dotenv by uncommenting these lines below
-        // $this->messages[] = getenv('WOWOWIN');
-        // $this->messages[] = getenv('ENVIRONMENT');
+        // $this->messages[] = getenv('WOWOWIN', true);
+        // $this->messages[] = getenv('ENVIRONMENT', true);
 
         // AJAX Detection
         // $this->setForJsonObject(true);
