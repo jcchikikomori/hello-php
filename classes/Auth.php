@@ -141,12 +141,14 @@ class Auth extends App
                 // get result row (as an object)
                 // NOTE: we are really gonna use arrays. In PHP 5.4+, array is like this [], others are old array()
                 $result_row = $this->db_connection->get(
-                    "users",
+                    "users", 
                     [
-                    //COLUMNS
-                    'user_id', 'user_name', 'user_email', 'user_password',
-                    'first_name', 'last_name', 'user_account_type',
-                    'created', 'modified'
+                        "[>]user_types" => ["user_account_type" => "user_type"],
+                    ],
+                    [
+                        'user_id', 'user_name', 'user_email', 'user_password',
+                        'first_name', 'last_name', 'user_account_type',
+                        'created', 'modified', 'type_desc'
                     ],
                     [
                     // CONDITIONS
@@ -178,7 +180,8 @@ class Auth extends App
                         // Session::set_user('first_name', $first_name);
                         // Session::set_user('last_name', $last_name);
                         Session::set('user_logged_in', true);
-                        Session::set_user('user_logged_in_as', $result_row['user_account_type']);
+                        // Session::set_user('user_logged_in_as', $result_row['user_account_type']);
+                        Session::set_user('user_logged_in_as', $result_row['type_desc']);
                     }
                     // response
                     $this->messages[] = "Hi " . $user_name . "!";

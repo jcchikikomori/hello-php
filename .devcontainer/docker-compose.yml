@@ -19,7 +19,7 @@ services:
       # - "3306:3306"
       - "5432:5432"
       - "6379:6379"
-      - "8080:8080"
+      # - "8080:8080"
       - "8081:8081"
       - "27017:27017"
     init: true
@@ -116,6 +116,8 @@ services:
   # adminer:
   #   image: adminer
   #   restart: always
+  #   ports:
+  #     - "8080:8080"
   #   network_mode: service:workspace
 
   mongo-express:

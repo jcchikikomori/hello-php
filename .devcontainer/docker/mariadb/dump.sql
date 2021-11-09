@@ -1,116 +1,54 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Jun 19, 2017 at 03:03 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- Adminer 4.8.1 MySQL 5.5.5-10.6.4-MariaDB-1:10.6.4+maria~focal dump
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+CREATE DATABASE `docker` /*!40100 DEFAULT CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci */;
+USE `docker`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `prototype-001`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reset_codes`
---
-
+DROP TABLE IF EXISTS `reset_codes`;
 CREATE TABLE `reset_codes` (
-  `id` bigint(10) NOT NULL,
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `code` varchar(30) NOT NULL,
   `email` varchar(64) NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`),
+  KEY `random_code` (`code`),
+  KEY `reset_email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `users`
---
-
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `user_id` bigint(10) NOT NULL COMMENT 'auto incrementing user_id of each user, unique index',
-  `user_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s name, unique',
-  `user_password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'user''s password in salted and hashed format',
-  `user_email` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s email, unique',
-  `first_name` varchar(160) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `middle_name` varchar(160) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(160) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',
+  `user_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'user''s name, unique',
+  `user_password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'user''s password in salted and hashed format',
+  `user_email` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'user''s email, unique',
+  `first_name` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `middle_name` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `last_name` varchar(160) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `user_account_type` text NOT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='user data';
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `modified` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='user data';
 
--- --------------------------------------------------------
+INSERT INTO `users` (`user_id`, `user_name`, `user_password`, `user_email`, `first_name`, `middle_name`, `last_name`, `user_account_type`, `created`, `modified`) VALUES
+(1,	'adminako',	'$2y$10$uosWG2tEWwZIqNyTMtH1COBKY9ZvoslIv7qnutp8FtaM/LLai9f9W',	'johncyrillcorsanes@gmail.com',	'JOHN CYRILL',	'CUMPIO',	'CORSANES',	'admin',	'2021-11-09 05:17:21',	'2021-11-09 05:17:21');
 
---
--- Table structure for table `user_types`
---
-
+DROP TABLE IF EXISTS `user_types`;
 CREATE TABLE `user_types` (
   `id` int(11) NOT NULL,
-  `user_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `type_desc` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'Full information about this user type'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_types`
---
+  `user_type` varchar(20) NOT NULL,
+  `type_desc` varchar(300) NOT NULL COMMENT 'Full information about this user type',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `user_types` (`id`, `user_type`, `type_desc`) VALUES
-(0, 'admin', 'Administrators'),
-(1, 'user', 'Users');
+(0,	'admin',	'Administrators'),
+(1,	'user',	'Users');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `reset_codes`
---
-ALTER TABLE `reset_codes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`),
-  ADD KEY `random_code` (`code`),
-  ADD KEY `reset_email` (`email`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `user_types`
---
-ALTER TABLE `user_types`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `reset_codes`
---
-ALTER TABLE `reset_codes`
-  MODIFY `id` bigint(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `user_id` bigint(10) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index', AUTO_INCREMENT=0;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- 2021-11-09 05:47:24

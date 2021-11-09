@@ -17,7 +17,7 @@ use Medoo\Medoo as DB;
 // require libraries
 use PDO; // from PHP
 use libraries\Session as Session;
-use libraries\Helper as Helper;
+// use libraries\Helper as Helper;
 
 /**
  * Firing up!
@@ -140,8 +140,10 @@ class App
          * - define('ENVIRONMENT', 'web'); For Web Hosting / Deployment
          * (don't use if you are about to go development/offline)
          */
-        if (!defined($_ENV['ENVIRONMENT']) && empty($_ENV['ENVIRONMENT'])) {
-            define('ENVIRONMENT', 'release');
+        // echo var_dump(getenv('ENVIRONMENT'));
+        if (!defined('ENVIRONMENT') && empty(getenv('ENVIRONMENT'))) {
+            // exit('ENV Error: ENVIRONMENT variable is missing');
+            exit("The application environment is not set correctly. Please check your .env file");
         }
 
         /**
@@ -164,20 +166,15 @@ class App
          * Error reporting and User Configs
          * ER: Useful to show every little problem during development, but only show hard errors in production
          */
-        switch (ENVIRONMENT) {
+        switch (getenv('ENVIRONMENT')) {
             case 'development':
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
                 break;
-            case 'web':
-            case 'release':
-            case 'maintenance':
-                // default:
+            default:
                 error_reporting(0);
                 ini_set('display_errors', 0);
                 break;
-            default:
-                exit("The application environment is not set correctly.");
         }
 
         /**
@@ -218,9 +215,8 @@ class App
         }
 
         // You can test dotenv by uncommenting these lines below
-        // (by either using $_ENV or straight constant)
-        // $this->messages[] = $_ENV['WOWOWIN'];
-        // $this->messages[] = ENVIRONMENT;
+        // $this->messages[] = getenv('WOWOWIN');
+        // $this->messages[] = getenv('ENVIRONMENT');
 
         // AJAX Detection
         // $this->setForJsonObject(true);
