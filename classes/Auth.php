@@ -141,7 +141,7 @@ class Auth extends App
                 // get result row (as an object)
                 // NOTE: we are really gonna use arrays. In PHP 5.4+, array is like this [], others are old array()
                 $result_row = $this->db_connection->get(
-                    "users", 
+                    "users",
                     [
                         "[>]user_types" => ["user_account_type" => "user_type"],
                     ],

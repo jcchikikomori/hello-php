@@ -17,7 +17,6 @@ use Medoo\Medoo as DB;
 // require libraries
 use PDO; // from PHP
 use libraries\Session as Session;
-// use libraries\Helper as Helper;
 
 /**
  * Firing up!
