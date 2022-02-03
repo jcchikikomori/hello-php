@@ -72,7 +72,7 @@ class Registration extends Auth
      */
     public function getUserTypes()
     {
-        return $this->db_connection->select("user_types", '*');
+        return $this->db_connection->select("user_types", "*");
     }
 
     /**

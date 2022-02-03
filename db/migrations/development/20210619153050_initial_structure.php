@@ -6,6 +6,8 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
 {
     public function change()
     {
+        $this->execute("ALTER DATABASE CHARACTER SET 'utf8mb4';");
+        $this->execute("ALTER DATABASE COLLATE='utf8mb4_general_ci';");
         $this->table('reset_codes', [
                 'id' => false,
                 'primary_key' => ['id'],
@@ -15,9 +17,9 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
                 'comment' => '',
                 'row_format' => 'DYNAMIC',
             ])
-            ->addColumn('id', 'biginteger', [
+            ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => MysqlAdapter::INT_BIG,
+                'limit' => '10',
                 'identity' => 'enable',
             ])
             ->addColumn('code', 'string', [
@@ -36,7 +38,7 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('created', 'timestamp', [
                 'null' => false,
-                'default' => 'CURRENT_TIMESTAMP',
+                'default' => 'current_timestamp()',
                 'after' => 'email',
             ])
             ->addIndex(['code'], [
@@ -52,35 +54,6 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
                 'unique' => false,
             ])
             ->create();
-        $this->table('user_types', [
-                'id' => false,
-                'primary_key' => ['id'],
-                'engine' => 'InnoDB',
-                'encoding' => 'utf8',
-                'collation' => 'utf8_general_ci',
-                'comment' => '',
-                'row_format' => 'DYNAMIC',
-            ])
-            ->addColumn('id', 'integer', [
-                'null' => false,
-                'limit' => MysqlAdapter::INT_REGULAR,
-            ])
-            ->addColumn('user_type', 'string', [
-                'null' => false,
-                'limit' => 20,
-                'collation' => 'utf8_unicode_ci',
-                'encoding' => 'utf8',
-                'after' => 'id',
-            ])
-            ->addColumn('type_desc', 'string', [
-                'null' => false,
-                'limit' => 300,
-                'collation' => 'utf8_unicode_ci',
-                'encoding' => 'utf8',
-                'comment' => 'Full information about this user type',
-                'after' => 'user_type',
-            ])
-            ->create();
         $this->table('users', [
                 'id' => false,
                 'primary_key' => ['user_id'],
@@ -90,9 +63,9 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
                 'comment' => 'user data',
                 'row_format' => 'DYNAMIC',
             ])
-            ->addColumn('user_id', 'biginteger', [
+            ->addColumn('user_id', 'integer', [
                 'null' => false,
-                'limit' => MysqlAdapter::INT_BIG,
+                'limit' => '10',
                 'identity' => 'enable',
                 'comment' => 'auto incrementing user_id of each user, unique index',
             ])
@@ -106,6 +79,7 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('user_password', 'string', [
                 'null' => true,
+                'default' => null,
                 'limit' => 255,
                 'collation' => 'utf8_unicode_ci',
                 'encoding' => 'utf8',
@@ -150,13 +124,42 @@ class InitialStructure extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('created', 'timestamp', [
                 'null' => false,
-                'default' => 'CURRENT_TIMESTAMP',
+                'default' => 'current_timestamp()',
                 'after' => 'user_account_type',
             ])
             ->addColumn('modified', 'timestamp', [
                 'null' => false,
-                'default' => 'CURRENT_TIMESTAMP',
+                'default' => 'current_timestamp()',
                 'after' => 'created',
+            ])
+            ->create();
+        $this->table('user_types', [
+                'id' => false,
+                'primary_key' => ['id'],
+                'engine' => 'InnoDB',
+                'encoding' => 'utf8',
+                'collation' => 'utf8_general_ci',
+                'comment' => '',
+                'row_format' => 'DYNAMIC',
+            ])
+            ->addColumn('id', 'integer', [
+                'null' => false,
+                'limit' => MysqlAdapter::INT_REGULAR,
+            ])
+            ->addColumn('user_type', 'string', [
+                'null' => false,
+                'limit' => 20,
+                'collation' => 'utf8_unicode_ci',
+                'encoding' => 'utf8',
+                'after' => 'id',
+            ])
+            ->addColumn('type_desc', 'string', [
+                'null' => false,
+                'limit' => 300,
+                'collation' => 'utf8_unicode_ci',
+                'encoding' => 'utf8',
+                'comment' => 'Full information about this user type',
+                'after' => 'user_type',
             ])
             ->create();
     }

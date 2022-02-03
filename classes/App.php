@@ -293,12 +293,13 @@ class App
           'password' => DB_PASS,
           'charset' => $charset,
           'port' => (defined(DB_PORT) && !empty(DB_PORT) ? DB_PORT : 3306), // if defined then use, else default
-          'option' => [ PDO::ATTR_CASE => PDO::CASE_NATURAL ]
+          'option' => [ PDO::ATTR_CASE => PDO::CASE_NATURAL ],
+          'error' => PDO::ERRMODE_SILENT
         ];
 
         // SQLite Support
         if ($driver == 'sqlite') {
-            $database_properties['database_file'] = DB_FILE;
+            $database_properties['database'] = DB_FILE;
             // unset fields that don't need for sqlite
             unset($database_properties['database_name']);
             unset($database_properties['server']);
@@ -307,11 +308,7 @@ class App
             unset($database_properties['charset']);
             unset($database_properties['port']);
         }
-        $database = new DB($database_properties); // DB START!
-
-        // DB Errors within connection
-        $database->errors = (null !== $database->error() || !empty($database->error())) ? $database->error() : array();
-        return $database;
+        return new DB($database_properties); // DB START!
     }
 
     /**

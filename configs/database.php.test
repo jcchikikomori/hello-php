@@ -17,11 +17,10 @@
  * DB_TYPE: database type. mysql is default
  * DB_FILE: this is completely optional, unless you are gonna use SQLITE
  */
-define("DB_HOST", "127.0.0.1");
-define("DB_NAME", "myphp_db");
-define("DB_USER", "root");
-define("DB_PASS", "root");
-define("DB_PORT", 3306);
+define("DB_HOST", "");
+define("DB_NAME", "");
+define("DB_USER", "");
+define("DB_PASS", "");
+define("DB_PORT", null);
 define("DB_TYPE", 'sqlite');
-// FOR SQLITE!!
-define("DB_FILE", 'myphp_db.db');
+define("DB_FILE", 'test.db');
