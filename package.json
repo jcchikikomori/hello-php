@@ -2,6 +2,7 @@
   "name": "hello-php",
   "license": "MIT",
   "dependencies": {
+    "datatables.net-bs4": "^1.11.4",
     "startbootstrap-sb-admin-2": "^4.1.1"
   }
 }
