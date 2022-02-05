@@ -40,7 +40,7 @@ class Cookies
      * @param  mixed $key Cookie Key - Usually a string
      * @return mixed either exists or not
      */
-    public static function get($key) : mixed
+    public static function get($key): mixed
     {
         if (isset($_COOKIE[$key])) {
             return $_COOKIE[$key];
