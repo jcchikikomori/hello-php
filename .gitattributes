@@ -1,1 +1,4 @@
-db/		export-ignore
+.devcontainer/          export-ignore
+.github/		            export-ignore
+WIKI.md	            	  export-ignore
+MIGRATION_GUIDE.md		  export-ignore
