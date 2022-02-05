@@ -1,8 +1,30 @@
 {
   "name": "hello-php",
   "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build:js": "webpack --progress --mode=production",
+    "watch:js": "webpack --progress --watch --mode=development",
+    "build:css": "node-sass --omit-source-map-url --importer node_modules/node-sass-import assets/_css/index.scss assets/css/index.css",
+    "watch:css": "yarn run build:css -- --watch",
+    "deploy": "yarn run build:css && yarn run build:js"
+  },
   "dependencies": {
-    "datatables.net-bs4": "^1.11.4",
-    "startbootstrap-sb-admin-2": "^4.1.1"
+    "@vizuaalog/bulmajs": "^0.12.1",
+    "bulma": "^0.9.3",
+    "bulma-prefers-dark": "^0.1.0-beta.1",
+    "dayjs": "^1.10.7",
+    "jquery": "^3.6.0",
+    "webpack": "^5.67.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-jquery": "^3.0.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jquery": "^1.5.1",
+    "node-sass": "^7.0.1",
+    "node-sass-import": "^2.0.1",
+    "webpack-cli": "^4.9.2"
   }
 }
