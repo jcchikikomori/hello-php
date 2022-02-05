@@ -17,6 +17,7 @@
 require_once "classes/App.php";
 require_once "classes/Auth.php";
 require_once "classes/User.php";
+require_once "classes/concerns/RememberMe.php";
 
 $auth = new classes\Auth();
 $user = new classes\User();

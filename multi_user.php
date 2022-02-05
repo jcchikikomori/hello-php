@@ -18,6 +18,7 @@
 // then Instantiate the class to use it
 require_once "classes/App.php";
 require_once "classes/Auth.php";
+require_once "classes/concerns/RememberMe.php";
 
 // load the auth class then instantiate again
 $auth = new classes\Auth();

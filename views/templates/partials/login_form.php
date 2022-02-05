@@ -37,7 +37,7 @@
                             Remember me
                         </label>
                     </div>
-                    <input type="submit" class="button is-primary" name="login" value="Login" />
+                    <input type="submit" class="button is-primary is-fullwidth" name="login" value="Login" />
 
                     <?php
                     if (($this->multi_user_status) && !libraries\Session::user_logged_in()) {
@@ -60,10 +60,12 @@
                     if (isset($multi_user_requested) || isset($switch_user_requested)) {
                         echo '<a href="/" class="btn btn btn-primary btn-block">Go back to home</a>';
                     }
-                    echo '<br /><br />';
-                    echo '<p><a href="forgotpassword.php" class="btn btn btn-primary btn-block">Forgot Password?</a></p>';
-                    echo '<p><a href="register.php" class="btn btn btn-primary btn-block">Register</a></p>';
                     ?>
+                    <hr />
+                    <div class="buttons are-small">
+                        <a href="register.php" class="button is-fullwidth">Register</a>
+                        <a href="forgotpassword.php" class="button is-danger is-fullwidth">Forgot Password?</a>
+                    </div>
                 </form>
             </div>
         </div>
