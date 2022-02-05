@@ -6,6 +6,7 @@ use classes\concerns\RememberMe;
 use DateTime;
 use libraries\Helper;
 use libraries\Session;
+use libraries\Cookies;
 
 /**
  * Authentication class
@@ -494,8 +495,7 @@ class Auth extends App
 
         // remove the remember_me cookie
         if (isset($_COOKIE['remember_me'])) {
-            unset($_COOKIE['remember_me']);
-            setcookie('remember_user', null, -1);
+            Cookies::set('remember_me', null, -1);
         }
     }
 

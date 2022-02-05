@@ -20,25 +20,31 @@ class Cookies
     /**
      * sets a specific value to a specific key of the cookie
      *
-     * @param mixed $key
-     * @param mixed $value
-     * @param bool  $append - For arrays / objects
+     * @param mixed $key Cookie Key - Usually a string
+     * @param mixed $value Cookie Value
+     * @param bool  $expired_seconds - Cookie Expiry
+     * @return void
      */
     public static function set($key, $value, $expired_seconds)
     {
         setcookie($key, $value, $expired_seconds);
+        // If value was null/empty, unset the cookie as well
+        if ($value == null) {
+            unset($_COOKIE[$key]);
+        }
     }
 
     /**
-     * gets/returns the value of a specific key of the cookie
+     * Gets/Returns the value of a specific key of the cookie
      *
-     * @param  mixed $key Usually a string
-     * @return mixed
+     * @param  mixed $key Cookie Key - Usually a string
+     * @return mixed either exists or not
      */
-    public static function get($key)
+    public static function get($key) : mixed
     {
         if (isset($_COOKIE[$key])) {
             return $_COOKIE[$key];
         }
+        return null;
     }
 }
