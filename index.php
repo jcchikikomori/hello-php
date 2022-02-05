@@ -12,6 +12,7 @@ require_once "classes/App.php";
 
 // load the login class then instantiate again
 require_once "classes/Auth.php";
+require_once "classes/concerns/RememberMe.php";
 $auth = new classes\Auth();
 
 // collect response from Auth constructor

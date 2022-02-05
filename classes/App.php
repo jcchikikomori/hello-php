@@ -18,6 +18,7 @@ use Medoo\Medoo as DB;
 use PDO; // from PHP
 use libraries\Session as Session;
 use libraries\Helper as Helper;
+use Medoo\Medoo;
 
 /**
  * Firing up!
@@ -44,9 +45,9 @@ class App
      */
     public $dotenv = null;
     /**
-     * @var object $db_connection The database connection
+     * @var \Medoo\Medoo $db_connection The database connection
      */
-    public $db_connection = null;
+    public $db_connection;
     /**
      * @var array Collection of error messages
      */
@@ -293,7 +294,7 @@ class App
      * @param  string $charset Database Charset. utf8 is default and most compatible
      * @return DB
      */
-    public function connect_database($driver = DB_TYPE, $charset = 'utf8')
+    public function connect_database($driver = DB_TYPE, $charset = 'utf8'): DB
     {
         $database_properties = [
           'database_type' => $driver,
@@ -304,7 +305,8 @@ class App
           'charset' => $charset,
           'port' => (defined(DB_PORT) && !empty(DB_PORT) ? DB_PORT : 3306), // if defined then use, else default
           'option' => [ PDO::ATTR_CASE => PDO::CASE_NATURAL ],
-          'error' => PDO::ERRMODE_SILENT
+          'error' => PDO::ERRMODE_SILENT,
+          'logging' => true,
         ];
 
         // SQLite Support

@@ -3,12 +3,8 @@
 namespace libraries;
 
 /**
- * Session class
- *
- * handles the session stuff. creates session when no one exists, sets and
- * gets values, and closes the session properly (=logout). Those methods
- * are STATIC, which means you can call them with Session::get(XXX);
- * New tests (as of 04-16-2017): Multi-user setups like the Google Auth System
+ * Cookies class
+ * TODO: Put current user on cookies over session
  *
  * PHP version 7.2
  *
@@ -22,54 +18,27 @@ namespace libraries;
 class Cookies
 {
     /**
-     * sets a specific value to a specific key of the session
+     * sets a specific value to a specific key of the cookie
      *
      * @param mixed $key
      * @param mixed $value
      * @param bool  $append - For arrays / objects
      */
-    public static function set($key, $value, $append = false)
+    public static function set($key, $value, $expired_seconds)
     {
-        if (is_array($value) && $append) {
-            $arr = $_SESSION[$key]; // expecting as array/object
-            array_merge($arr, $value);
-            $_SESSION[$key] = $arr;
-        } else {
-            $_SESSION[$key] = $value;
-        }
+        setcookie($key, $value, $expired_seconds);
     }
 
     /**
-     * Alternate version of set() for users
-     * sets a specific value to a specific key of the session
-     * NOTES:
-     * - "self" is a static version of $this
-     * WARNING: This will overwrite/add the value to the
-     * current user unless $id specified!
-     *
-     * @param mixed $key
-     * @param mixed $value
-     * @param $id
-     */
-    public static function set_user($key, $value, $id = null)
-    {
-        if (empty($id)) {
-            $id = self::get('current_user');
-        }
-        $_SESSION['users'][$id][$key] = $value;
-    }
-
-    /**
-     * gets/returns the value of a specific key of the session
+     * gets/returns the value of a specific key of the cookie
      *
      * @param  mixed $key Usually a string
      * @return mixed
      */
     public static function get($key)
     {
-        if (isset($_SESSION[$key])) {
-            // Debugger::dump($key);
-            return $_SESSION[$key];
+        if (isset($_COOKIE[$key])) {
+            return $_COOKIE[$key];
         }
     }
 }
