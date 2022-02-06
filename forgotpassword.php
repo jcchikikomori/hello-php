@@ -19,7 +19,7 @@ require_once "classes/Auth.php";
 require_once "classes/User.php";
 require_once "classes/concerns/RememberMe.php";
 
-$auth = new classes\Auth();
+$context = new classes\Auth();
 $user = new classes\User();
 
 // Immediate Password Reset Action
@@ -27,20 +27,20 @@ if (isset($_GET['resetpasswordwithcode'])) {
     if (isset($_POST['reset_password_with_code'])) {
         $email = $_POST['email'];
         $code = $_POST['reset_code'];
-        if ($auth->verifyResetCode($email, $code)) {
+        if ($context->verifyResetCode($email, $code)) {
             // for now, email is required
             $data = array(
                 'email_address' => $email,
                 'reset_code' => $code
             );
             // this should be a success page
-            $auth->render("forgot_password_success", $data);
+            $context->render("forgot_password/success", $data);
             exit();
         }
     } else {
         // default page
         // this should be a success page
-        $auth->render("forgot_password_code");
+        $context->render("forgot_password/reset_code");
         exit();
     }
     // RESETTING PASSWORD
@@ -54,10 +54,12 @@ if (isset($_GET['resetpasswordwithcode'])) {
 
     $result = $user->resetPassword($_POST);
     if ($result) {
-        $auth->render("login_form", $data);
+        // $context->render("templates/partials/login_form", $data);
+        // Redirect to root directory
+        header("Location: " . DIRECTORY_SEPARATOR);
         exit();
     } else {
-        $auth->render("forgot_password_success", $data);
+        $context->render("forgot_password/success", $data);
         exit();
     }
 }
@@ -66,11 +68,11 @@ if (isset($_GET['resetpasswordwithcode'])) {
  * You can add $app->multi_user_status condition
  * if you want a single-user mode
  */
-if (!$auth->isUserLoggedIn()) {
+if (!$context->isUserLoggedIn()) {
     // DEBUG: TRY THIS ONE (CODE GENERATOR). SAVES TO DATABASE
-    // echo "<h2>".$auth->generateRandomCode(5)."</h2>";
-    $auth->render("forgot_password");
+    // echo "<h2>".$context->generateRandomCode(5)."</h2>";
+    $context->render("forgot_password/index");
 } else {
     // error reporting
-    $auth->error("Must be logged out first.");
+    $context->error("Must be logged out first.");
 }

@@ -22,13 +22,13 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" placeholder="Username" name="user_name" type="text" autofocus required>
+                            <input class="input" placeholder="" name="user_name" type="text" autofocus required>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" placeholder="Password" name="user_password" type="password" required>
+                            <input class="input" placeholder="" name="user_password" type="password" required>
                         </div>
                     </div>
                     <div class="field">
@@ -58,7 +58,7 @@
                         }
                     }
                     if (isset($multi_user_requested) || isset($switch_user_requested)) {
-                        echo '<a href="/" class="btn btn btn-primary btn-block">Go back to home</a>';
+                        echo '<a href="/" class="button is-primary is-fullwidth">Go back to home</a>';
                     }
                     ?>
                     <hr />
