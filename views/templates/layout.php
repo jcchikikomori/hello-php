@@ -23,7 +23,7 @@
 
 <body>
   <?php
-  if ($user_logged_in) {
+  if ($user_logged_in && (!$multi_user_requested && !$switch_user_requested)) {
     include "./views/templates/partials/admin.php";
   } else {
   ?>

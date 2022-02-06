@@ -13,8 +13,8 @@ Try to close this browser tab and open it again. Still logged in! ;)
 <hr />
 <?php if ($this->multi_user_status) { ?>
     <!-- Add another user -->
-    <a href="multi_user.php?add_existing_user" class="btn btn btn-primary btn-block">Add another user</a>
-    <a href="multi_user.php?switch_user" class="btn btn btn-primary btn-block">Switch user</a>
+    <a href="multi_user.php?add_existing_user" class="button">Add another user</a>
+    <a href="multi_user.php?switch_user" class="button">Switch user</a>
 <?php } ?>
 
 <!-- because people were asking: "index.php?logout" is just my simplified form of "index.php?logout=true" -->

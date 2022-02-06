@@ -73,7 +73,10 @@ class Registration extends Auth
      */
     public function getUserTypes()
     {
-        return $this->db_connection->select("user_types", "*");
+        // Setting up columns as an empty array, can automatically sets as "*"
+        // Example: SELECT * FROM database_name.user_types;
+        // Source: https://medoo.in/api/select
+        return $this->db_connection->select("user_types", []);
     }
 
     /**
