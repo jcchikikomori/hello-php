@@ -349,17 +349,17 @@ class Auth extends App
     }
 
     /**
-     * simply return the current state of the user's login
+     * Simply return the current state of the user's login
+     * TODO: Deprecated. Moving to App
+     * @deprecated 0.7-alpha
      *
      * @return boolean user's login status
      */
     public function isUserLoggedIn()
     {
-        if (Session::user_logged_in() && !isset($_GET["logout"])) { // you can use session lib
-            return true;
-        } else {
-            return false;
-        }
+        // you can use session lib
+        // This returns as boolean, otherwise false
+        return Session::user_logged_in();
     }
 
     public function forgotPassword($email)

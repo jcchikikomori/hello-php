@@ -1,0 +1,22 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "semi": [ "error", "never" ],
+    "jquery/no-ready": 0,
+    "jquery/no-prop": 0,
+    "jquery/no-hide": 0,
+    "jquery/no-fade": 0
+  },
+  "plugins": [
+    "jquery"
+  ],
+  "extends": [
+    "plugin:jquery/slim"
+  ]
+}

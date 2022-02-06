@@ -23,11 +23,14 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"felixfbecker.php-debug",
-		"felixfbecker.php-intellisense",
+		"xdebug.php-pack",
+		"walkme.PHP-extension-pack",
+		"phproberto.vscode-php-getters-setters",
+		"linyang95.php-symbols",
 		"mrmlnc.vscode-apache",
 		"mtxr.sqltools",
-		"mtxr.sqltools-driver-mysql"
+		"mtxr.sqltools-driver-mysql",
+		"esbenp.prettier-vscode"
 	],
 
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)

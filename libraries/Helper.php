@@ -45,24 +45,18 @@ class Helper
 
     /**
      * Display Messages
+     * TODO: Expose Global Variables for layouts
      */
     public static function getFeedback()
     {
         $obj = Session::get('response');
         if (isset($obj)) {
-            if (!empty($obj['messages'])) {
-                echo '<div class="alert bg-success alert-dismissible fade show" role="alert">';
-                echo '<ul class="list-unstyled"><strong>MSG FROM SERVER</strong><br /><br />';
-                foreach ($obj['messages'] as $message) {
-                    echo '<li>' . $message . '</li>';
-                }
-                echo '</ul>';
-                echo '<button class="close" aria-label="close" data-dismiss="alert" type="button">';
-                echo '<span aria-hidden="true">x</span></button>';
-                echo '</div>';
+            // Explicit call to Auth class (assumed Auth class is loaded)
+            if (!empty($obj['messages']) && isset($GLOBALS["auth"])) {
+                $data = array("_notification_messages" => $obj['messages']);
+                $GLOBALS["auth"]->render_partial("templates/partials/notification", $data);
             }
         }
-        // else {echo 'Session error';}
         Session::destroy('response');
     }
 
