@@ -170,7 +170,7 @@ class App
          * - define('ENVIRONMENT', 'web'); For Web Hosting / Deployment
          * (don't use if you are about to go development/offline)
          */
-        if (!defined($_ENV['ENVIRONMENT']) && empty($_ENV['ENVIRONMENT'])) {
+        if (!$dotenv->required('ENVIRONMENT')->notEmpty()) {
             define('ENVIRONMENT', 'release');
         }
 
@@ -178,9 +178,10 @@ class App
          * Application folder
          * TODO: Restructure first
          */
-        if (!defined('APP_DIR')) {
-            define('APP_DIR', ROOT . 'application');
-        }
+        // if (!$dotenv->required('APP_DIR')->notEmpty()) {
+        //     define('APP_DIR', ROOT . 'application');
+        // }
+        define('APP_DIR', ROOT . 'application');
 
         /**
          * Load external libraries/classes by LOOP.
@@ -194,7 +195,7 @@ class App
          * Error reporting and User Configs
          * ER: Useful to show every little problem during development, but only show hard errors in production
          */
-        switch (ENVIRONMENT) {
+        switch ($_ENV['ENVIRONMENT']) {
             case 'development':
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
@@ -214,7 +215,7 @@ class App
          * Multi-user default value
          * TODO: Set using dotEnv
          */
-        if (!defined('MULTI_USER')) {
+        if (!$dotenv->required('MULTI_USER')->notEmpty()) {
             define('MULTI_USER', false);
         }
 
@@ -222,7 +223,7 @@ class App
          * Multi-user
          * Default is false
          */
-        $this->multi_user_status = $_ENV['MULTI_USER'];
+        $this->multi_user_status = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN);
 
         /**
          * Fixed Paths
@@ -252,7 +253,8 @@ class App
         // You can test dotenv by uncommenting these lines below
         // (by using $_ENV)
         // $this->messages[] = $_ENV['WOWOWIN'];
-        // $this->messages[] = $_ENV['MULTI_USER'];
+        // $this->messages[] = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN); 
+        // $this->messages[] = $this->multi_user_status;
 
         // AJAX Detection
         // $this->setForJsonObject(true);
@@ -280,6 +282,7 @@ class App
             // Push other needed
             $data["_views_path"] = $this->views_path; // for /libraries/Helper.php
             $data["user_logged_in"] = Session::user_logged_in();
+            $data["multi_user_status"] = $this->multi_user_status;
             $data["multi_user_requested"] = $this->multi_user_requested;
             $data["switch_user_requested"] = $this->switch_user_requested;
             // Extract array keys into variables

@@ -11,7 +11,7 @@
 ?>
 Try to close this browser tab and open it again. Still logged in! ;)
 <hr />
-<?php if ($this->multi_user_status) { ?>
+<?php if ($multi_user_status) { ?>
     <!-- Add another user -->
     <a href="multi_user.php?add_existing_user" class="button">Add another user</a>
     <a href="multi_user.php?switch_user" class="button">Switch user</a>

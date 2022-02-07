@@ -27,15 +27,12 @@
 	//   phpfmt - PHP formatter (kokororin.vscode-phpfmt), PHP Symbols (linyang95.php-symbols), PHP import checker (marabesi.php-import-checker),
 	//   PHP Namespace Resolver (MehediDracula.php-namespace-resolver), PHP DocBlocker (neilbrayfield.php-docblocker)
 	"extensions": [
-		// "walkme.PHP-extension-pack",
-		// "phproberto.vscode-php-getters-setters",
-		// "linyang95.php-symbols",
 		"mrmlnc.vscode-apache",
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-mysql",
 		"faelv.composer-companion",
-		"marabesi.php-import-checker",
-		"DEVSENSE.phptools-vscode"
+		"DEVSENSE.phptools-vscode",
+		"IronGeek.vscode-env"
 	],
 
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)

@@ -5,7 +5,7 @@
             <div class="has-text-centered">
                 <p class="is-size-4 is-size-5-touch p-2">
                     <?php
-                    if ($_ENV['MULTI_USER'] && libraries\Session::user_logged_in()) {
+                    if ($multi_user_status && libraries\Session::user_logged_in()) {
                         echo 'Add existing user to login';
                     } else {
                         echo 'Login';
@@ -47,21 +47,21 @@
                     </div>
 
                     <?php
-                    if (($_ENV['MULTI_USER']) && !libraries\Session::user_logged_in()) {
+                    if (($multi_user_status) && !libraries\Session::user_logged_in()) {
                         $logged_users = libraries\Session::get('users');
                         if (!empty($logged_users)) {
-                            echo "<hr /><p>Other active users..</p>";
+                            echo "<hr /><p>Other active users..</p><br />";
                             echo "<ul>";
                             foreach ($logged_users as $user => $value) {
                                 echo "<li>" .
-                                    "<a href='index.php?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
+                                    "<div class='buttons'>" .
+                                    "<a class='button is-small is-primary is-outlined' href='index.php?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
                                 if (!$switch_user_requested) {
-                                    echo "<a href='index.php?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'> Logout</a>";
+                                    echo "<a class='button is-small is-danger is-rounded is-outlined' href='index.php?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'> X</a>";
                                 }
-                                echo "</li>";
+                                echo "</div></li>";
                             }
                             echo "</ul>";
-                            echo "<hr />";
                         }
                     }
                     ?>

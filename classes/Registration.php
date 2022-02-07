@@ -76,7 +76,7 @@ class Registration extends Auth
         // Setting up columns as an empty array, can automatically sets as "*"
         // Example: SELECT * FROM database_name.user_types;
         // Source: https://medoo.in/api/select
-        return $this->db_connection->select("user_types", []);
+        return $this->db_connection->select("user_types", ["user_type", "type_desc"]);
     }
 
     /**
