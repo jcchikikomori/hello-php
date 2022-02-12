@@ -253,7 +253,7 @@ class App
         // You can test dotenv by uncommenting these lines below
         // (by using $_ENV)
         // $this->messages[] = $_ENV['WOWOWIN'];
-        // $this->messages[] = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN); 
+        // $this->messages[] = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN);
         // $this->messages[] = $this->multi_user_status;
 
         // AJAX Detection

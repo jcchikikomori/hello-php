@@ -25,7 +25,8 @@ $context = new classes\Auth();
 
 // either multi-user login or switch user (requires multi-user too)
 if (
-    ($context->isUserLoggedIn() && $context->multi_user_requested) || (!$context->isUserLoggedIn() && $context->switch_user_requested)
+    ($context->isUserLoggedIn() && $context->multi_user_requested) ||
+    (!$context->isUserLoggedIn() && $context->switch_user_requested)
 ) {
     // then render
     $data['multi_user_requested'] = $context->multi_user_requested;
