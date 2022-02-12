@@ -11,11 +11,11 @@ use libraries\Helper;
  * PHP version 7.2
  *
  * @category Registration
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class Registration extends Auth
 {
