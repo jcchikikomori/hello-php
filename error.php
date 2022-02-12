@@ -8,13 +8,13 @@
  * PHP version 7.2
  *
  * @category Error
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   Chris Coyier <chriscoyier@gmail.com>
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @source   https://css-tricks.com/snippets/php/error-page-to-handle-all-errors/
  * @license  http://opensource.org/licenses/MIT MIT License
  * @version  0.5.1-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 
 require_once "classes/App.php";
