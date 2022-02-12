@@ -21,7 +21,8 @@
         "robmorgan/phinx": "^0.12.4",
         "squizlabs/php_codesniffer": "*",
         "filp/whoops": "^2.7",
-        "vlucas/phpdotenv": "^5.2"
+        "vlucas/phpdotenv": "^5.2",
+        "perchten/neat_html": "^1.4"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*",

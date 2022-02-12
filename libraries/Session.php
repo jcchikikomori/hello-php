@@ -125,6 +125,10 @@ class Session
      */
     public static function user_logged_in()
     {
+        // $_GET["logout"] must not be set, unless the app will log you out
+        if (isset($_GET["logout"])) {
+            return false;
+        }
         return isset($_SESSION['current_user']) && !empty($_SESSION['current_user']);
     }
 

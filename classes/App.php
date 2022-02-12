@@ -260,6 +260,7 @@ class App
 
     /**
      * Rendering views
+     * Note: Extracting arrays into variables are contained each view
      *
      * @param string $part  = Partial view
      * @param array  $data  = Sets of data to be also rendered/returned
@@ -269,24 +270,33 @@ class App
     {
         // Check if its not for JSON response
         if (!$this->isForJsonObject()) {
-            extract($data); // extract array keys into variables
+            // Push partial to existing $data array
+            $data["partial"] = $this->views_path . $part . '.php';
+            // Push other needed
+            $data["_views_path"] = $this->views_path; // for /libraries/Helper.php
+            $data["user_logged_in"] = Session::user_logged_in();
+            // Extract array keys into variables
+            extract($data);
+            // If layout was activated (default)
             if ($this->isLayouts()) {
                 include $this->header_path;
-                include $this->views_path . $part . '.php';
                 include $this->footer_path;
             } else {
-                include $this->views_path . $part . '.php';
+                // Extract without layout
+                $this->render_partial($part);
             }
         }
     }
 
     /**
      * Render partial file wihout checking layout switch
+     * Note: Extracting arrays into variables are contained each view
      *
      * @param string $part = Partial view
      */
-    public function render_partial($part)
+    public function render_partial($part, $data = array())
     {
+        extract($data);
         include $this->views_path . $part . '.php';
     }
 
@@ -299,7 +309,7 @@ class App
     public function error($message, $data = array())
     {
         $data['error_message'] = $message;
-        $this->render('templates/error_page', $data);
+        $this->render('error/index', $data);
     }
 
     /**
@@ -403,5 +413,22 @@ class App
     public function setLayouts($layouts)
     {
         $this->layouts = $layouts;
+    }
+
+    /**
+     * Extract with additional helpers to identify the following
+     * - If user is logged in
+     * - Error Reporting
+     *
+     * @param [Array] $arr Array Object
+     * @return void
+     */
+    private function extract($data)
+    {
+        $data["user_logged_in"] = Session::user_logged_in();
+        // Uses native extract API
+        extract($data);
+        echo "<pre>" . var_dump($data) . "</pre>";
+        echo "<pre>" . var_dump($GLOBALS) . "</pre>";
     }
 }

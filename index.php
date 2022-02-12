@@ -15,13 +15,15 @@ require_once "classes/Auth.php";
 $auth = new classes\Auth();
 
 // collect response from Auth constructor
+// Note: Auth was extended from App class so we can call functions from the App class
 $auth->collectResponse(array($auth));
 // if user logged in (using Auth class)
 if ($auth->isUserLoggedIn()) {
     // put data here using App's render()
-    $auth->render("logged_in");
+    // put "auth" to show $auth on output, otherwise undefined
+    $auth->render("templates/partials/logged_in");
 }
 // not logged in
 elseif (!$auth->isUserLoggedIn()) {
-    $auth->render("login_form");
+    $auth->render("templates/partials/login_form");
 }

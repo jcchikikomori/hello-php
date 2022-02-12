@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31d52ef8ede5dd20bf226218d774d2e",
+    "content-hash": "7554c25fee296d5448c9576d5b96691a",
     "packages": [
         {
             "name": "cakephp/core",
@@ -1050,6 +1050,60 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "perchten/neat_html",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perchten/neat_html.git",
+                "reference": "a2d608567f9ad2abe3dad04fa2a21b1190aab4cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perchten/neat_html/zipball/a2d608567f9ad2abe3dad04fa2a21b1190aab4cf",
+                "reference": "a2d608567f9ad2abe3dad04fa2a21b1190aab4cf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/neat_html.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alastair Brayne",
+                    "email": "al@perchten.co.uk",
+                    "homepage": "http://perchten.co.uk"
+                }
+            ],
+            "description": "Pretty-print PHP objects and arrays in html, json etc.",
+            "homepage": "https://github.com/perchten/neat_html",
+            "keywords": [
+                "arrays",
+                "comments",
+                "console",
+                "debug",
+                "html",
+                "json",
+                "objects",
+                "php",
+                "pretty-print",
+                "print",
+                "print_r",
+                "var_dump",
+                "var_export"
+            ],
+            "support": {
+                "issues": "https://github.com/perchten/neat_html/issues",
+                "source": "https://github.com/perchten/neat_html/tree/master"
+            },
+            "time": "2014-08-15T12:58:40+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -2669,5 +2723,5 @@
         "php": ">=7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
