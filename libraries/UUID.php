@@ -17,7 +17,7 @@ namespace libraries;
  * @author   Andrew Moore <andrewmoore@noemail.com>
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
+ * @version  0.5.1-alpha
  * @link     https://github.com/jcchikikomori/php7-starter
  * @link     http://www.php.net/manual/en/function.uniqid.php#94959
  */

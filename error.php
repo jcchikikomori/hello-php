@@ -13,7 +13,7 @@
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @source   https://css-tricks.com/snippets/php/error-page-to-handle-all-errors/
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  GIT: 0.51-alpha
+ * @version  0.5.1-alpha
  * @link     https://github.com/jcchikikomori/php7-starter
  */
 

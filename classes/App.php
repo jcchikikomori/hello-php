@@ -35,7 +35,7 @@ use Medoo\Medoo;
  * @package  PHP7Starter
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
+ * @version  0.5.1-alpha
  * @link     https://github.com/jcchikikomori/php7-starter
  */
 class App
