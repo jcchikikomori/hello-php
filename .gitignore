@@ -201,3 +201,6 @@ assets/js/*
 assets/css/*
 !assets/js/.gitinclude
 !assets/css/.gitinclude
+
+# dotenv
+.env
