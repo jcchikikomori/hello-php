@@ -2,6 +2,8 @@
 
 namespace classes;
 
+use concerns\RememberMe;
+
 /**
  * User class
  * User management
@@ -18,9 +20,10 @@ namespace classes;
 class User extends App
 {
     /**
-     * @var object $db_connection The database connection
+     * @var \Medoo\Medoo $db_connection The database connection
+     *
      */
-    public $db_connection = null;
+    public $db_connection;
     /**
      * @var array $errors Collection of error messages
      */

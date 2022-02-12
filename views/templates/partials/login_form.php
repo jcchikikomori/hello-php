@@ -31,6 +31,12 @@
                             <input class="input" placeholder="Password" name="user_password" type="password" required>
                         </div>
                     </div>
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="true">
+                            Remember me
+                        </label>
+                    </div>
                     <input type="submit" class="button is-primary" name="login" value="Login" />
 
                     <?php

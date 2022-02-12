@@ -1,8 +1,6 @@
 # hello-php
 
-## A naked PHP micro framework
-
-<i>previously called "MyPHP" because i am cringing so much on that name</i><br />
+## A naked & tiny PHP starter
 
 ## Disclaimer
 
@@ -10,38 +8,33 @@ This is not recommended for very large & complex projects.
 Building PHP made more simple over complicated frameworks on the market.
 This is also one of my prototype templates.
 
-## Will deprecate older PHP versions!
-
-The world is changing so fast that PHP 5 & 7 will be outdated very soon.
-
 ## Features
 
-* Uses PHP 7 features
-* Quite & less modular but still easy to learn for newbies, baby!
-* OOP Structured & can do CRUD, Login/Register, Pagination (SOON), & REST
-* Quite Documented and plenty of comments inside
+* Quite & less modular but still easy to learn for newbies
+* OOP Structured
+* Documented and plenty of comments inside
 * Render whether a JSON object or a web page
 * Using Medoo for more easier database handling (called DB in Core)
 
 ## Additonal Features
 
 * Multi-user login setup like the Google Auth System (disabled by default)
-* You can build a function for email using Composer or load your own library in libraries/ dir
-* Uses Composer to load external dependencies by loading Composer dependencies (PHPMailer, PHPUnit, etc.) for sure
-* NodeJS ready. You can use Yarn or NPM for load public dependencies such as Bootstrap, JQuery or maybe Foundation too! (You can ignore this if you prefer CDNs)
-* Currently using [SB-Admin 2](http://startbootstrap.com/template-overviews/sb-admin-2/) front-end template. You can replace them easily with bower! (Don't forget to check Headers & Footers!)
-* .example files might help you in your development!
+* Modular PHP application using [Composer](https://getcomposer.org)!
+* Supports phpcs (CodeSniffer)
+* Supports PHPUnit (Unstable yet)
 
 ## Requirements
 
 * Knowledge in PHP 7 or higher
 * Familiar in Object-Oriented Programming
-* PHP 7.2.5 or higher installed on your machine
-* Apache or NGINX or any with rewrite support
-* Supports MYSQL/MARIADB & SQLITE as well, if you are going to MYSQL, go install and set it up.
-* [Composer](https://getcomposer.org) (PHP Dependency Manager, required and it's available even for Windows with XAMPP, or WAMPS!)
+* Docker
 
-## Installation
+## Developing on Visual Studio Code (Recommended)
+
+With Docker & VSCode, you can start developing without hassle, or without installing anything.
+Know more [here](https://code.visualstudio.com/docs/remote/containers).
+
+## Manual Installation
 
 ### Composer to install PHP dependencies
 
@@ -57,7 +50,7 @@ NOTE: You can add more dependency by using this command
 
 ### Database Installation (Automated)
 
-This project uses `phinx` as database migration tool.
+This project uses [Phinx by CakePHP](https://phinx.org/) as database migration tool.
 
 Just execute the following, and that's it!
 
@@ -65,27 +58,6 @@ Just execute the following, and that's it!
 $ php ./vendor/bin/phinx migrate
 $ php ./vendor/bin/phinx seed:run
 ```
-
-### Database Installation (Manual)
-
-The database query for this are provided [here](https://gist.github.com/jcchikikomori/5e10a6d9e549778eff40adb5a3556e4a)
-
-## Known Issues
-
-* Error Handling for REST/JSON (it's up to you to catch it since it's already parsed on JSON format)
-
-## Work to do
-
-[x] SQLite Support
-[ ] Email Service
-[x] Forgot Password System
-[x] Error Handling with .htaccess
-[ ] Error Codes
-[x] Using REST/JSON formats for new API class (for OAuth, Android, etc.)
-[ ] App Deployment like Heroku, AWS, VPS, etc.
-[x] Multi-user
-[ ] Pagination
-[ ] JSON/REST response handling
 
 ## Notice
 
@@ -100,5 +72,5 @@ The database query for this are provided [here](https://gist.github.com/jcchikik
 
 ## License
 
-Licensed under [MIT](http://www.opensource.org/licenses/mit-license.php). You can use this script for free for any
+Licensed under [MIT](LICENSE). You can use this script for free for any
 private or commercial projects.

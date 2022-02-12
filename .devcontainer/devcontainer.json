@@ -30,7 +30,10 @@
 		"mrmlnc.vscode-apache",
 		"mtxr.sqltools",
 		"mtxr.sqltools-driver-mysql",
-		"esbenp.prettier-vscode"
+		"esbenp.prettier-vscode",
+		"mrmlnc.vscode-apache",
+		"faelv.composer-companion",
+		"marabesi.php-import-checker"
 	],
 
 	// For use with PHP or Apache (e.g.php -S localhost:8080 or apache2ctl start)
