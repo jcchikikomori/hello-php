@@ -3,9 +3,9 @@
         <!-- Migrated from BS into Bulma -->
         <div class="login-panel card">
             <div class="has-text-centered">
-                <p class="is-size-3 is-size-4-mobile p-2">
+                <p class="is-size-4 is-size-5-touch p-2">
                     <?php
-                    if ($this->multi_user_status && libraries\Session::user_logged_in()) {
+                    if ($multi_user_status && libraries\Session::user_logged_in()) {
                         echo 'Add existing user to login';
                     } else {
                         echo 'Login';
@@ -22,42 +22,56 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" placeholder="Username" name="user_name" type="text" autofocus required>
+                            <input class="input" placeholder="" name="user_name" type="text" autofocus required>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" placeholder="Password" name="user_password" type="password" required>
+                            <input class="input" placeholder="" name="user_password" type="password" required>
                         </div>
                     </div>
-                    <input type="submit" class="button is-primary" name="login" value="Login" />
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" value="true">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class="buttons">
+                        <input type="submit" class="button is-primary is-fullwidth" name="login" value="Login" />
+                        <?php
+                            if ($multi_user_requested || $switch_user_requested) {
+                                echo '<a href="/" class="button is-danger is-fullwidth">Cancel</a>';
+                            }
+                        ?>
+                    </div>
 
                     <?php
-                    if (($this->multi_user_status) && !libraries\Session::user_logged_in()) {
+                    if (($multi_user_status) && !libraries\Session::user_logged_in()) {
                         $logged_users = libraries\Session::get('users');
                         if (!empty($logged_users)) {
-                            echo "<hr /><p>Other active users..</p>";
+                            echo "<hr /><p>Other active users..</p><br />";
                             echo "<ul>";
                             foreach ($logged_users as $user => $value) {
                                 echo "<li>" .
-                                    "<a href='index.php?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
-                                if (!isset($switch_user_requested)) {
-                                    echo "<a href='index.php?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'>logout</a>";
+                                    "<div class='buttons'>" .
+                                    "<a class='button is-small is-primary is-outlined' href='index.php?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
+                                if (!$switch_user_requested) {
+                                    echo "<a class='button is-small is-danger is-rounded is-outlined' href='index.php?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'> X</a>";
                                 }
-                                echo "</li>";
+                                echo "</div></li>";
                             }
                             echo "</ul>";
-                            echo "<hr />";
                         }
                     }
-                    if (isset($multi_user_requested) || isset($switch_user_requested)) {
-                        echo '<a href="/" class="btn btn btn-primary btn-block">Go back to home</a>';
-                    }
-                    echo '<br /><br />';
-                    echo '<p><a href="forgotpassword.php" class="btn btn btn-primary btn-block">Forgot Password?</a></p>';
-                    echo '<p><a href="register.php" class="btn btn btn-primary btn-block">Register</a></p>';
                     ?>
+                    <?php if (!$multi_user_requested && !$switch_user_requested) { ?>
+                        <hr />
+                        <div class="buttons are-small">
+                            <a href="register.php" class="button is-fullwidth">Register</a>
+                            <a href="forgotpassword.php" class="button is-danger is-fullwidth">Forgot Password?</a>
+                        </div>
+                    <?php } ?>
                 </form>
             </div>
         </div>

@@ -8,14 +8,14 @@ anywhere you wanted (by setting up like this in root dir -> php file)
 ```php
 // index.php
 require_once "classes/App.php";
-$app = new classes\App();
+$context = new classes\App();
 
 // Render with default variable helpers
-$app->render("templates/partials/logged_in");
+$context->render("templates/partials/logged_in");
 
 // Render with additional variables
 $additional = array("abc" => 123, "xyz" => 789);
-$app->render("templates/partials/logged_in", $additional);
+$context->render("templates/partials/logged_in", $additional);
 ```
 
 ```php
@@ -37,5 +37,9 @@ $app->render("templates/partials/logged_in", $additional);
 ### Default Global Variables
 
 - `$partial` - Partial render file
-- `$user_logged_in` - To determine if user is logged in or not<br />
-  Executed in [classes/App.php](classes/App.php)
+
+#### Global Variables that are defined in [classes/App.php](classes/App.php)
+
+- `$user_logged_in` - To determine if user is logged in or not
+- `$multi_user_requested` - If logged in user requested to do Multi-user feature
+- `$switch_user_requested` - If logged in user requested to change user

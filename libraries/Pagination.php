@@ -25,8 +25,8 @@ class Pagination
      * Pagination constructor.
      *
      * @param int $id    ID from get or POST for Paging
-     * @param $limit Row limit
-     * @param $rows  Total rows
+     * @param int $limit Row limit
+     * @param int $rows  Total rows
      */
     public function __construct($id, $limit = null, $rows = null)
     {

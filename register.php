@@ -16,23 +16,17 @@
 require_once "classes/App.php";
 require_once "classes/Auth.php";
 require_once "classes/Registration.php";
+require_once "classes/concerns/RememberMe.php";
 
-$registration = new classes\Registration(); // TODO: Get from constructed App class
+$context = new classes\Registration();
 
-/**
- * Now put your data here and include in render()
- */
-$data = array(
-    'user_types' => $registration->getUserTypes()
-);
-
-/**
- * You can add $app->multi_user_status condition
- * if you want a single-user mode
- */
-if (!$registration->isUserLoggedIn()) {
-    $registration->render("register", $data);
+// Now put your data here and include in render()
+$data = ['user_types' => $context->getUserTypes()];
+// You can add $app->multi_user_status condition
+// if you want a single-user mode
+if (!$context->isUserLoggedIn()) {
+    $context->render("templates/partials/register", $data);
 } else {
     // error reporting
-    $registration->error("Must be logged out first.");
+    $context->error("Must be logged out first.");
 }

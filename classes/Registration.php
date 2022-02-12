@@ -2,6 +2,8 @@
 
 namespace classes;
 
+use libraries\Helper;
+
 /**
  * Registration class
  * Handles the user registration
@@ -18,11 +20,10 @@ namespace classes;
 class Registration extends Auth
 {
     /**
-     * Init the database connection object
+     * @var \Medoo\Medoo $db_connection The database connection
      *
-     * @var object $db_connection Database connection object
      */
-    public $db_connection = null;
+    public $db_connection;
 
     /**
      * Init the collection of error messages
@@ -72,7 +73,10 @@ class Registration extends Auth
      */
     public function getUserTypes()
     {
-        return $this->db_connection->select("user_types", "*");
+        // Setting up columns as an empty array, can automatically sets as "*"
+        // Example: SELECT * FROM database_name.user_types;
+        // Source: https://medoo.in/api/select
+        return $this->db_connection->select("user_types", ["user_type", "type_desc"]);
     }
 
     /**

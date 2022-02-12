@@ -18,6 +18,7 @@ use Medoo\Medoo as DB;
 use PDO; // from PHP
 use libraries\Session as Session;
 use libraries\Helper as Helper;
+use Medoo\Medoo;
 
 /**
  * Firing up!
@@ -40,13 +41,13 @@ use libraries\Helper as Helper;
 class App
 {
     /**
-     * @var Dotenv object
+     * @var \Dotenv\Dotenv object
      */
     public $dotenv = null;
     /**
-     * @var object $db_connection The database connection
+     * @var \Medoo\Medoo $db_connection The database connection
      */
-    public $db_connection = null;
+    public $db_connection;
     /**
      * @var Whoops object
      */
@@ -76,8 +77,37 @@ class App
     protected $views_path; // default views path
     protected $assets_path; // For files under root/public
     protected $templates_path; // templates like default header
-    protected $header_path; // layout header path
-    protected $footer_path; // layout footer path
+
+    /**
+     * layout partial file
+     *
+     * @var string
+     */
+    protected $layout_file;
+
+    /**
+     * layout header path
+     *
+     * @deprecated 0.7-alpha
+     * @var string
+     */
+    protected $header_path;
+
+    /**
+     * layout footer path
+     *
+     * @deprecated 0.7-alpha
+     * @var string
+     */
+    protected $footer_path;
+
+    /**
+     * Multi-user checks
+     *
+     * @var bool
+     */
+    public $multi_user_requested = false;
+    public $switch_user_requested = false;
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -144,7 +174,7 @@ class App
          * - define('ENVIRONMENT', 'web'); For Web Hosting / Deployment
          * (don't use if you are about to go development/offline)
          */
-        if (!defined($_ENV['ENVIRONMENT']) && empty($_ENV['ENVIRONMENT'])) {
+        if (!$dotenv->required('ENVIRONMENT')->notEmpty()) {
             define('ENVIRONMENT', 'release');
         }
 
@@ -152,9 +182,10 @@ class App
          * Application folder
          * TODO: Restructure first
          */
-        if (!defined('APP_DIR')) {
-            define('APP_DIR', ROOT . 'application');
-        }
+        // if (!$dotenv->required('APP_DIR')->notEmpty()) {
+        //     define('APP_DIR', ROOT . 'application');
+        // }
+        define('APP_DIR', ROOT . 'application');
 
         /**
          * Load external libraries/classes by LOOP.
@@ -191,7 +222,7 @@ class App
          * Error reporting and User Configs
          * ER: Useful to show every little problem during development, but only show hard errors in production
          */
-        switch (ENVIRONMENT) {
+        switch ($_ENV['ENVIRONMENT']) {
             case 'development':
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
@@ -209,8 +240,9 @@ class App
 
         /**
          * Multi-user default value
+         * TODO: Set using dotEnv
          */
-        if (!defined('MULTI_USER')) {
+        if (!$dotenv->required('MULTI_USER')->notEmpty()) {
             define('MULTI_USER', false);
         }
 
@@ -218,7 +250,7 @@ class App
          * Multi-user
          * Default is false
          */
-        $this->multi_user_status = MULTI_USER;
+        $this->multi_user_status = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN);
 
         /**
          * Fixed Paths
@@ -228,8 +260,9 @@ class App
         $this->templates_path = ROOT . 'views' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
         $this->views_path = ROOT . 'views' . DIRECTORY_SEPARATOR;
         $this->assets_path = ROOT . 'assets' . DIRECTORY_SEPARATOR;
-        $this->header_path = $this->templates_path . 'header.php';
-        $this->footer_path = $this->templates_path . 'footer.php';
+        $this->layout_file = $this->templates_path . 'layout.php';
+        // $this->header_path = $this->templates_path . 'header.php';
+        // $this->footer_path = $this->templates_path . 'footer.php';
 
         // ======================= END OF INIT =======================
 
@@ -245,9 +278,10 @@ class App
         }
 
         // You can test dotenv by uncommenting these lines below
-        // (by either using $_ENV or straight constant)
+        // (by using $_ENV)
         // $this->messages[] = $_ENV['WOWOWIN'];
-        // $this->messages[] = ENVIRONMENT;
+        // $this->messages[] = filter_var($_ENV['MULTI_USER'], FILTER_VALIDATE_BOOLEAN);
+        // $this->messages[] = $this->multi_user_status;
 
         // AJAX Detection
         // $this->setForJsonObject(true);
@@ -275,12 +309,16 @@ class App
             // Push other needed
             $data["_views_path"] = $this->views_path; // for /libraries/Helper.php
             $data["user_logged_in"] = Session::user_logged_in();
+            $data["multi_user_status"] = $this->multi_user_status;
+            $data["multi_user_requested"] = $this->multi_user_requested;
+            $data["switch_user_requested"] = $this->switch_user_requested;
             // Extract array keys into variables
             extract($data);
             // If layout was activated (default)
             if ($this->isLayouts()) {
-                include $this->header_path;
-                include $this->footer_path;
+                // include $this->header_path;
+                // include $this->footer_path;
+                include $this->layout_file;
             } else {
                 // Extract without layout
                 $this->render_partial($part);
@@ -320,7 +358,7 @@ class App
      * @param  string $charset Database Charset. utf8 is default and most compatible
      * @return DB
      */
-    public function connect_database($driver = DB_TYPE, $charset = 'utf8')
+    public function connect_database($driver = DB_TYPE, $charset = 'utf8'): DB
     {
         $database_properties = [
           'database_type' => $driver,
@@ -331,7 +369,8 @@ class App
           'charset' => $charset,
           'port' => (defined(DB_PORT) && !empty(DB_PORT) ? DB_PORT : 3306), // if defined then use, else default
           'option' => [ PDO::ATTR_CASE => PDO::CASE_NATURAL ],
-          'error' => PDO::ERRMODE_SILENT
+          'error' => PDO::ERRMODE_SILENT,
+          'logging' => true,
         ];
 
         // SQLite Support

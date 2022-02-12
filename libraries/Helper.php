@@ -46,15 +46,20 @@ class Helper
     /**
      * Display Messages
      * TODO: Expose Global Variables for layouts
+     * TODO: Use app context instead
      */
     public static function getFeedback()
     {
         $obj = Session::get('response');
         if (isset($obj)) {
             // Explicit call to Auth class (assumed Auth class is loaded)
-            if (!empty($obj['messages']) && isset($GLOBALS["auth"])) {
+            if (!empty($obj['messages'])) {
                 $data = array("_notification_messages" => $obj['messages']);
-                $GLOBALS["auth"]->render_partial("templates/partials/notification", $data);
+                $file = "templates/partials/notification";
+                // TODO: Report this error if context doesn't exists
+                if (isset($GLOBALS["context"])) {
+                    $GLOBALS["context"]->render_partial($file, $data);
+                }
             }
         }
         Session::destroy('response');
