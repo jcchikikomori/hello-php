@@ -2,7 +2,9 @@
 
 namespace classes;
 
+// Use concerns here
 use classes\concerns\RememberMe;
+
 use DateTime;
 use libraries\Helper;
 use libraries\Session;

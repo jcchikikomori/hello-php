@@ -22,13 +22,13 @@
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" placeholder="Username" name="user_name" type="text" autofocus required>
+                            <input class="input" placeholder="" name="user_name" type="text" autofocus required>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Password</label>
                         <div class="control">
-                            <input class="input" placeholder="Password" name="user_password" type="password" required>
+                            <input class="input" placeholder="" name="user_password" type="password" required>
                         </div>
                     </div>
                     <div class="field">
@@ -37,7 +37,7 @@
                             Remember me
                         </label>
                     </div>
-                    <input type="submit" class="button is-primary" name="login" value="Login" />
+                    <input type="submit" class="button is-primary is-fullwidth" name="login" value="Login" />
 
                     <?php
                     if (($this->multi_user_status) && !libraries\Session::user_logged_in()) {
@@ -58,12 +58,14 @@
                         }
                     }
                     if (isset($multi_user_requested) || isset($switch_user_requested)) {
-                        echo '<a href="/" class="btn btn btn-primary btn-block">Go back to home</a>';
+                        echo '<a href="/" class="button is-primary is-fullwidth">Go back to home</a>';
                     }
-                    echo '<br /><br />';
-                    echo '<p><a href="forgotpassword.php" class="btn btn btn-primary btn-block">Forgot Password?</a></p>';
-                    echo '<p><a href="register.php" class="btn btn btn-primary btn-block">Register</a></p>';
                     ?>
+                    <hr />
+                    <div class="buttons are-small">
+                        <a href="register.php" class="button is-fullwidth">Register</a>
+                        <a href="forgotpassword.php" class="button is-danger is-fullwidth">Forgot Password?</a>
+                    </div>
                 </form>
             </div>
         </div>

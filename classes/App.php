@@ -73,8 +73,29 @@ class App
     protected $views_path; // default views path
     protected $assets_path; // For files under root/public
     protected $templates_path; // templates like default header
-    protected $header_path; // layout header path
-    protected $footer_path; // layout footer path
+
+    /**
+     * layout partial file
+     *
+     * @var string
+     */
+    protected $layout_file;
+
+    /**
+     * layout header path
+     *
+     * @deprecated 0.7-alpha
+     * @var string
+     */
+    protected $header_path;
+
+    /**
+     * layout footer path
+     *
+     * @deprecated 0.7-alpha
+     * @var string
+     */
+    protected $footer_path;
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -202,8 +223,9 @@ class App
         $this->templates_path = ROOT . 'views' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
         $this->views_path = ROOT . 'views' . DIRECTORY_SEPARATOR;
         $this->assets_path = ROOT . 'assets' . DIRECTORY_SEPARATOR;
-        $this->header_path = $this->templates_path . 'header.php';
-        $this->footer_path = $this->templates_path . 'footer.php';
+        $this->layout_file = $this->templates_path . 'layout.php';
+        // $this->header_path = $this->templates_path . 'header.php';
+        // $this->footer_path = $this->templates_path . 'footer.php';
 
         // ======================= END OF INIT =======================
 
@@ -253,8 +275,9 @@ class App
             extract($data);
             // If layout was activated (default)
             if ($this->isLayouts()) {
-                include $this->header_path;
-                include $this->footer_path;
+                // include $this->header_path;
+                // include $this->footer_path;
+                include $this->layout_file;
             } else {
                 // Extract without layout
                 $this->render_partial($part);
