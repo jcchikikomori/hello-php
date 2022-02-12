@@ -2,6 +2,8 @@
 
 namespace classes;
 
+use concerns\RememberMe;
+
 /**
  * User class
  * User management
@@ -9,18 +11,19 @@ namespace classes;
  * PHP version 7.2
  *
  * @category User
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class User extends App
 {
     /**
-     * @var object $db_connection The database connection
+     * @var \Medoo\Medoo $db_connection The database connection
+     *
      */
-    public $db_connection = null;
+    public $db_connection;
     /**
      * @var array $errors Collection of error messages
      */

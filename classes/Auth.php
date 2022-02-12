@@ -2,9 +2,13 @@
 
 namespace classes;
 
+// Use concerns here
+use classes\concerns\RememberMe;
+
 use DateTime;
-use libraries\Helper as Helper;
-use libraries\Session as Session;
+use libraries\Helper;
+use libraries\Session;
+use libraries\Cookies;
 
 /**
  * Authentication class
@@ -13,18 +17,19 @@ use libraries\Session as Session;
  * PHP version 7.2
  *
  * @category Auth
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class Auth extends App
 {
     /**
-     * @var object The database connection
+     * @var \Medoo\Medoo $db_connection The database connection
+     *
      */
-    public $db_connection = null;
+    public $db_connection;
 
     /**
      * For JSON
@@ -32,14 +37,6 @@ class Auth extends App
      * @var string $status
      */
     public $status;
-
-    /**
-     * Multi-user checks
-     *
-     * @var bool
-     */
-    public $multi_user_requested = false;
-    public $switch_user_requested = false;
 
     /**
      * the function "__construct()" automatically starts whenever an object of this class is created,
@@ -109,8 +106,11 @@ class Auth extends App
             $this->switch_user_requested = false;
         }
     }
+
     /**
      * log in with post data
+     *
+     * @return void
      */
     private function doLogin()
     {
@@ -179,6 +179,12 @@ class Auth extends App
                         // Session::set_user('last_name', $last_name);
                         Session::set('user_logged_in', true);
                         Session::set_user('user_logged_in_as', $result_row['user_account_type']);
+
+                        // Set Cookies (Remember Me)
+                        if (!empty($_POST['remember'])) {
+                            $remember_me = new RememberMe();
+                            $remember_me->init($user_id);
+                        }
                     }
                     // response
                     $this->messages[] = "Hi " . $user_name . "!";
@@ -208,6 +214,7 @@ class Auth extends App
         }
         $this->collectResponse(array($this));
     }
+
     /**
      * Multi-user version of doLogin()
      * NOTE: Check documentations/comments from doLogin()
@@ -349,17 +356,34 @@ class Auth extends App
     }
 
     /**
-     * simply return the current state of the user's login
+     * Simply return the current state of the user's login
      *
-     * @return boolean user's login status
+     * @return bool user's login status
      */
-    public function isUserLoggedIn()
+    public function isUserLoggedIn(): bool
     {
-        if (Session::user_logged_in() && !isset($_GET["logout"])) { // you can use session lib
+        // you can use session lib
+        // This returns as boolean, otherwise false
+        $session_check = Session::user_logged_in();
+        if ($session_check) {
             return true;
-        } else {
-            return false;
         }
+
+        // check the remember_me in cookie
+        $token = filter_input(INPUT_COOKIE, 'remember_me', FILTER_SANITIZE_STRING);
+
+        $remember_me = new RememberMe($this->db_connection);
+        if ($token && $remember_me->token_is_valid($token)) {
+            $user = $remember_me->find_user_by_token($token);
+            // If invalid
+            if (!$user) {
+                // Redirect
+                header("Location: " . DIRECTORY_SEPARATOR . "index.php?logout");
+                die();
+            }
+        }
+
+        return false;
     }
 
     public function forgotPassword($email)
@@ -455,11 +479,18 @@ class Auth extends App
     /**
      * Clean up current user session statuses
      * but it will not erase any user session data
+     *
+     * Note: Remember Me is currently not supported on Multi-user setup
      */
     public function cleanUpUserSession()
     {
         Session::set('current_user', null);
         Session::set('user_logged_in', false);
+
+        // remove the remember_me cookie
+        if (isset($_COOKIE['remember_me'])) {
+            Cookies::set('remember_me', null, -1);
+        }
     }
 
     /**

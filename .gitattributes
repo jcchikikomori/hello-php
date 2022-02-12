@@ -1,0 +1,6 @@
+.devcontainer/          export-ignore
+.github/		            export-ignore
+.vscode/             	  export-ignore
+.eslintrc.json     		  export-ignore
+*.db               		  export-ignore
+docs/             		  export-ignore

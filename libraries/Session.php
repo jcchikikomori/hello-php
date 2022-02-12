@@ -13,12 +13,12 @@ namespace libraries;
  * PHP version 7.2
  *
  * @category Session
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   Chris (panique) <panique@noemail.com>
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class Session
 {
@@ -125,6 +125,10 @@ class Session
      */
     public static function user_logged_in()
     {
+        // $_GET["logout"] must not be set, unless the app will log you out
+        if (isset($_GET["logout"])) {
+            return false;
+        }
         return isset($_SESSION['current_user']) && !empty($_SESSION['current_user']);
     }
 

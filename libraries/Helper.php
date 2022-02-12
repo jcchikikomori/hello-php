@@ -8,11 +8,11 @@ namespace libraries;
  * PHP version 7.2
  *
  * @category Helper
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class Helper
 {
@@ -45,24 +45,23 @@ class Helper
 
     /**
      * Display Messages
+     * TODO: Expose Global Variables for layouts
+     * TODO: Use app context instead
      */
     public static function getFeedback()
     {
         $obj = Session::get('response');
         if (isset($obj)) {
+            // Explicit call to Auth class (assumed Auth class is loaded)
             if (!empty($obj['messages'])) {
-                echo '<div class="alert bg-success alert-dismissible fade show" role="alert">';
-                echo '<ul class="list-unstyled"><strong>MSG FROM SERVER</strong><br /><br />';
-                foreach ($obj['messages'] as $message) {
-                    echo '<li>' . $message . '</li>';
+                $data = array("_notification_messages" => $obj['messages']);
+                $file = "templates/partials/notification";
+                // TODO: Report this error if context doesn't exists
+                if (isset($GLOBALS["context"])) {
+                    $GLOBALS["context"]->render_partial($file, $data);
                 }
-                echo '</ul>';
-                echo '<button class="close" aria-label="close" data-dismiss="alert" type="button">';
-                echo '<span aria-hidden="true">x</span></button>';
-                echo '</div>';
             }
         }
-        // else {echo 'Session error';}
         Session::destroy('response');
     }
 

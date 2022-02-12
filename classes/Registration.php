@@ -2,6 +2,8 @@
 
 namespace classes;
 
+use libraries\Helper;
+
 /**
  * Registration class
  * Handles the user registration
@@ -9,20 +11,19 @@ namespace classes;
  * PHP version 7.2
  *
  * @category Registration
- * @package  PHP7Starter
+ * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
- * @version  Release: 0.51-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @version  0.5.1-alpha
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class Registration extends Auth
 {
     /**
-     * Init the database connection object
+     * @var \Medoo\Medoo $db_connection The database connection
      *
-     * @var object $db_connection Database connection object
      */
-    public $db_connection = null;
+    public $db_connection;
 
     /**
      * Init the collection of error messages
@@ -72,7 +73,10 @@ class Registration extends Auth
      */
     public function getUserTypes()
     {
-        return $this->db_connection->select("user_types", "*");
+        // Setting up columns as an empty array, can automatically sets as "*"
+        // Example: SELECT * FROM database_name.user_types;
+        // Source: https://medoo.in/api/select
+        return $this->db_connection->select("user_types", ["user_type", "type_desc"]);
     }
 
     /**

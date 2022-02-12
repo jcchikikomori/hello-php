@@ -9,19 +9,21 @@
 
 // load required files
 require_once "classes/App.php";
-
-// load the login class then instantiate again
 require_once "classes/Auth.php";
-$auth = new classes\Auth();
+require_once "classes/concerns/RememberMe.php";
+// create a global context (variable)
+$context = new classes\Auth();
 
 // collect response from Auth constructor
-$auth->collectResponse(array($auth));
+// Note: Auth was extended from App class so we can call functions from the App class
+$context->collectResponse(array($context));
 // if user logged in (using Auth class)
-if ($auth->isUserLoggedIn()) {
+if ($context->isUserLoggedIn()) {
     // put data here using App's render()
-    $auth->render("logged_in");
+    // put "auth" to show $auth on output, otherwise undefined
+    $context->render("templates/partials/logged_in");
 }
 // not logged in
-elseif (!$auth->isUserLoggedIn()) {
-    $auth->render("login_form");
+elseif (!$context->isUserLoggedIn()) {
+    $context->render("templates/partials/login_form");
 }
