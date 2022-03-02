@@ -58,9 +58,9 @@ ARG XDEBUG_REMOTE_HOST=localhost
 ARG XDEBUG_REMOTE_PORT=9001
 ARG XDEBUG_REMOTE_LOG
 
-# Install xdebug 
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+# Install xdebug
+RUN pecl install xdebug || true
+RUN docker-php-ext-enable xdebug
 
 RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
