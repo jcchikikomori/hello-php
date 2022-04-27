@@ -1,13 +1,42 @@
 {
   "version": 2,
   "functions": {
-    "api/index.php": {
+    "*.php": {
       "runtime": "vercel-php@0.4.0"
     }
   },
   "rewrites": [
-    { "source": "/favicon.ico", "destination": "https://juicy.vercel.app/favicon.ico" },
-    { "source": "/(.*)", "destination": "/api/index.php" },
-    { "source": "/index.php", "destination": "/index.php" }
+    {
+      "source": "/favicon.ico",
+      "destination": "https://juicy.vercel.app/favicon.ico"
+    },
+    {
+      "source": "/",
+      "destination": "/index.php"
+    },
+    {
+      "source": "/debug.php",
+      "destination": "/debug.php"
+    },
+    {
+      "source": "/error.php",
+      "destination": "/error.php"
+    },
+    {
+      "source": "/forgotpassword.php",
+      "destination": "/forgotpassword.php"
+    },
+    {
+      "source": "/register.php",
+      "destination": "/register.php"
+    },
+    {
+      "source": "/multi_user.php",
+      "destination": "/multi_user.php"
+    },
+    {
+      "source": "/logout.php",
+      "destination": "/logout.php"
+    }
   ]
 }
