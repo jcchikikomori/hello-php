@@ -8,7 +8,7 @@ namespace libraries;
  *
  * PHP version 7.2
  *
- * @category Session
+ * @category Cookies
  * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License

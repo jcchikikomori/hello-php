@@ -18,7 +18,7 @@ use PDOStatement;
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
  * @license  http://opensource.org/licenses/MIT MIT License
  * @version  Release: 0.7-alpha
- * @link     https://github.com/jcchikikomori/php7-starter
+ * @link     https://github.com/jcchikikomori/hello-php
  */
 class RememberMe extends App
 {
