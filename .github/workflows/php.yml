@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master, hotfix/*, release/* ]
   pull_request:
-    branches: [ master, hotfix/*, release/* ]
+    branches: [ release/* ]
 
 jobs:
   build:
