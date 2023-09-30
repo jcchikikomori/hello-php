@@ -14,7 +14,7 @@
                 </p>
             </div>
             <div class="card-body">
-                <form method="post" action="index.php" name="loginform" class="box">
+                <form method="post" action="/" name="loginform" class="box">
                     <?php
                     // show potential errors / feedback (from session)
                     libraries\Helper::getFeedback();
@@ -55,9 +55,9 @@
                             foreach ($logged_users as $user => $value) {
                                 echo "<li>" .
                                     "<div class='buttons'>" .
-                                    "<a class='button is-small is-primary is-outlined' href='index.php?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
+                                    "<a class='button is-small is-primary is-outlined' href='?login&u=" . $user . "&n=" . $value['user_name'] . "'>" . $value['full_name'] . "</a>";
                                 if (!$switch_user_requested) {
-                                    echo "<a class='button is-small is-danger is-rounded is-outlined' href='index.php?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'> X</a>";
+                                    echo "<a class='button is-small is-danger is-rounded is-outlined' href='?logout&u=" . $user . "&n=" . $value['user_name'] . "' class='pull-right'> X</a>";
                                 }
                                 echo "</div></li>";
                             }
@@ -67,9 +67,9 @@
                     ?>
                     <?php if (!$multi_user_requested && !$switch_user_requested) { ?>
                         <hr />
-                        <div class="buttons are-small">
-                            <a href="register.php" class="button is-fullwidth">Register</a>
-                            <a href="forgotpassword.php" class="button is-danger is-fullwidth">Forgot Password?</a>
+                        <div class="buttons">
+                            <a href="/register" class="button is-fullwidth">Register</a>
+                            <a href="/forgotpassword" class="button is-danger is-fullwidth">Forgot Password?</a>
                         </div>
                     <?php } ?>
                 </form>

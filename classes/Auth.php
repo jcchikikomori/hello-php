@@ -378,7 +378,7 @@ class Auth extends App
             // If invalid
             if (!$user) {
                 // Redirect
-                header("Location: " . DIRECTORY_SEPARATOR . "index.php?logout");
+                header("Location: " . DIRECTORY_SEPARATOR . "?logout");
                 die();
             }
         }

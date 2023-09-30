@@ -7,7 +7,7 @@
                 </p>
             </div>
             <div class="card-body">
-                <form method="post" action="register.php" name="registerform" class="box">
+                <form method="post" action="/register" name="registerform" class="box">
                     <?php
                     // show potential errors / feedback
                     libraries\Helper::getFeedback();
@@ -68,7 +68,7 @@
                     <!-- Change this to a button or input when using this as a form -->
                     <input type="submit" class="button is-primary is-fullwidth" name="register" value="Register" />
                     <hr />
-                    <a href="index.php" class="button is-small is-fullwidth">Go back to Login page</a>
+                    <a href="/" class="button is-small is-fullwidth">Go back to Login page</a>
                 </form>
             </div>
         </div>

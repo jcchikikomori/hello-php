@@ -11,8 +11,15 @@
 require_once "classes/App.php";
 require_once "classes/Auth.php";
 require_once "classes/concerns/RememberMe.php";
-// create a global context (variable)
-$context = new classes\Auth();
+require_once "classes/handlers/URI.php";
+
+// Implement URI handling along with the specified context
+$URI = new classes\handlers\URI(new classes\Auth());
+$context = $URI->getContext();
+
+if ($URI->isClassProcessed()) {
+    exit();
+}
 
 // collect response from Auth constructor
 // Note: Auth was extended from App class so we can call functions from the App class

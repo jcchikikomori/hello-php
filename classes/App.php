@@ -14,6 +14,9 @@ use Jenssegers\Agent\Agent as UserAgent;
 // Using Medoo as DB
 use Medoo\Medoo as DB;
 
+// require handlers\
+use classes\handlers\URI as URI;
+
 // require libraries
 use PDO; // from PHP
 use libraries\Session as Session;
@@ -72,8 +75,15 @@ class App
     public $response = array(); // collecting response
 
     /**
+     * ROOT Directory
+     * @var string
+     */
+    protected $baseDir;
+
+    /**
      * FIXED PATHS
      */
+    protected $controllers_path; // default views path
     protected $views_path; // default views path
     protected $assets_path; // For files under root/public
     protected $templates_path; // templates like default header
@@ -258,6 +268,7 @@ class App
          * Just don't break the right structure/variables there
          */
         $this->templates_path = ROOT . 'views' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+        $this->controllers_path = ROOT . 'controllers' . DIRECTORY_SEPARATOR;
         $this->views_path = ROOT . 'views' . DIRECTORY_SEPARATOR;
         $this->assets_path = ROOT . 'assets' . DIRECTORY_SEPARATOR;
         $this->layout_file = $this->templates_path . 'layout.php';
@@ -276,6 +287,9 @@ class App
         if ($agent->isMobile()) {
             $this->messages[] = "You are browsing using mobile!";
         }
+
+        // URI Handler Test
+        new URI($this);
 
         // You can test dotenv by uncommenting these lines below
         // (by using $_ENV)
@@ -391,7 +405,7 @@ class App
      * Collect Response based from class you've defined.
      *
      * @param  array $classes Set of classes with set of feedback after execution
-     * @param  null  $tag     Custom tags (e.g: [INFO])
+     * @param  string  $tag     Custom tags (e.g: [INFO])
      *                       WARNING: Currently using
      *                       ternary conditions inside
      *                       the loop
@@ -452,6 +466,24 @@ class App
     public function setLayouts($layouts)
     {
         $this->layouts = $layouts;
+    }
+
+    /**
+     * Get Base Directory
+     * @return string
+     */
+    public function getBaseDir()
+    {
+        return $this->baseDir;
+    }
+
+    /**
+     * Get Controllers Directory
+     * @return string
+     */
+    public function getControllersDir()
+    {
+        return $this->controllers_path;
     }
 
     /**
