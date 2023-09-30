@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Code Quality Checks
 
 on:
   push:
@@ -12,11 +12,11 @@ jobs:
     strategy:
       matrix:
         operating-system: ['ubuntu-latest', 'windows-latest', 'macos-latest']
-        php-versions: ['8.0']
+        php-versions: ['8.1']
         phpunit-versions: ['latest']
         include:
         - operating-system: 'ubuntu-latest'
-          php-versions: '8.0'
+          php-versions: '8.1'
           phpunit-versions: '8.5.13'
     steps:
     - name: Checkout
@@ -32,8 +32,6 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --no-progress --no-suggest
-    # - name: PHPUnit
-    #   run: php ./vendor/bin/phpunit
     - name: Run PHP CodeSniffer
       run: ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
 
