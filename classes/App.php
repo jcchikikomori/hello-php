@@ -49,6 +49,10 @@ class App
      */
     public $db_connection;
     /**
+     * @var Whoops object
+     */
+    public $whoops = null;
+    /**
      * @var array Collection of error messages
      */
     public $errors = array();
@@ -190,6 +194,29 @@ class App
         foreach (glob(ROOT . 'libraries' . DIRECTORY_SEPARATOR . '*.php') as $libraries) {
             require_once $libraries;
         }
+
+        /**
+         * Detect coding errors using Whoops!
+         */
+        $whoops = new \Whoops\Run();
+
+        /**
+         * Use PrettyPageHandler
+         */
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+
+        /**
+         * Detect if request comes from REST
+         */
+        if (\Whoops\Util\Misc::isAjaxRequest()) {
+            $whoops->removeLastHandler();
+            $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
+        }
+
+        /**
+         * Finally register Whoops handler
+         */
+        $whoops->register();
 
         /**
          * Error reporting and User Configs
