@@ -33,5 +33,5 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --no-progress --no-suggest
     - name: Run PHP CodeSniffer
-      run: ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
+      run: ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multiuser.php register.php
 
