@@ -2,7 +2,7 @@ name: Code Quality Checks
 
 on:
   push:
-    branches: [ master, hotfix/*, release/* ]
+    branches: [ master, develop, hotfix/*, feature/*, bugfix/* ]
   pull_request:
     branches: [ release/* ]
 
