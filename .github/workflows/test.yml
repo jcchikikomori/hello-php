@@ -43,7 +43,7 @@ jobs:
     strategy:
       matrix:
         operating-system: ['windows-latest']
-        php-versions: ['8.0']
+        php-versions: ['8.1']
         phpunit-versions: ['latest']
     steps:
     - name: Checkout
@@ -65,6 +65,7 @@ jobs:
         Remove-Item configs/database.php
         Copy-Item configs/database.php.test configs/database.php
         php ./vendor/bin/phinx migrate
+        php ./vendor/bin/phinx seed:run
     - name: Run PHP CodeSniffer
       run: php ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
 
