@@ -3,6 +3,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "yarn run build:js && yarn run build:css",
     "build:js": "webpack --progress --mode=production",
     "watch:js": "webpack --progress --watch --mode=development",
     "build:css": "node-sass --omit-source-map-url --importer node_modules/node-sass-import assets/_css/index.scss assets/css/index.css",
@@ -15,7 +16,7 @@
     "bulma-prefers-dark": "^0.1.0-beta.1",
     "dayjs": "^1.10.7",
     "jquery": "^3.6.0",
-    "webpack": "^5.67.0"
+    "webpack": "^5.76.0"
   },
   "devDependencies": {
     "eslint": "^7.30.0",
