@@ -40,7 +40,8 @@ class URI
     /**
      * @param App $app
      */
-    public function __construct($app) {
+    public function __construct($app)
+    {
         // Reuse the application
         $this->app = $app;
 
@@ -50,7 +51,8 @@ class URI
         // if ($request_uri == DIRECTORY_SEPARATOR && $request_uri !== "/index.php" &&
         //     isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'], '?') !== false) {
 
-        // if ($request_uri !== "/" && isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'], '?') !== false) {
+        // if ($request_uri !== "/" &&
+        //     isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'], '?') !== false) {
         //     // Remove leading and trailing slashes, if any
         //     $request_uri = strtolower(trim($request_uri, DIRECTORY_SEPARATOR));
         //     // echo var_dump($request_uri);
@@ -69,7 +71,6 @@ class URI
         //         exit(0);
         //     }
         // } else {
-            
         // }
 
         // Tentative move
@@ -77,19 +78,19 @@ class URI
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "index.php");
             $this->processed = true;
-        } else if ($request_uri === "/forgotpassword") {
+        } elseif ($request_uri === "/forgotpassword") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "forgotpassword.php");
             $this->processed = true;
-        } else if ($request_uri === "/register") {
+        } elseif ($request_uri === "/register") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "register.php");
             $this->processed = true;
-        } else if ($request_uri === "/multiuser") {
+        } elseif ($request_uri === "/multiuser") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "multiuser.php");
             $this->processed = true;
-        } else if ($request_uri === "/logout") {
+        } elseif ($request_uri === "/logout") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "logout.php");
             $this->processed = true;
@@ -100,11 +101,13 @@ class URI
         }
     }
 
-    public function getContext() {
+    public function getContext()
+    {
         return $this->app;
     }
 
-    public function isClassProcessed() {
+    public function isClassProcessed()
+    {
         return $this->processed;
     }
 }
