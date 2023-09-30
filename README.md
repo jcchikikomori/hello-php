@@ -34,6 +34,13 @@ This is also one of my prototype templates.
 With Docker & VSCode, you can start developing without hassle, or without installing anything.
 Know more [here](https://code.visualstudio.com/docs/remote/containers).
 
+### Running the Application
+
+1. Go to Visual Studio Code
+2. Go to "Run and Debug"
+3. After showing the sidebar with "RUN AND DEBUG" section, choose Launch built-in server
+4. Then click the "Play" icon
+
 ## Manual Installation
 
 ### Composer to install PHP dependencies
@@ -44,9 +51,9 @@ NOTE: You can add more dependency by using this command
 
 `$ composer require author/dependency_name`
 
-### Yarn to install front-end dependencies
+### NodeJS to install front-end dependencies
 
-`$ yarn install`
+`$ npm install`
 
 ### Database Installation (Automated)
 

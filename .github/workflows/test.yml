@@ -1,10 +1,10 @@
-name: Debug
+name: Integration Testing
 
 on:
   push:
-    branches: [ develop, feature/*, bugfix/* ]
+    branches: [ master, develop, hotfix/*, feature/*, bugfix/* ]
   pull_request:
-    branches: [ develop, feature/*, bugfix/* ]
+    branches: [ release/* ]
 
 jobs:
   unix-build:
@@ -12,11 +12,11 @@ jobs:
     strategy:
       matrix:
         operating-system: ['ubuntu-latest', 'macos-latest']
-        php-versions: ['8.0']
+        php-versions: ['8.1']
         phpunit-versions: ['latest']
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -28,13 +28,14 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --no-progress --no-suggest
-    # - name: PHPUnit
-    #   run: php ./vendor/bin/phpunit
     - name: Run Migration
       run: |
-        export PHINX_ENVIRONMENT=development
+        export PHINX_ENVIRONMENT=testing
         cp -f configs/database.php.test configs/database.php
         php ./vendor/bin/phinx migrate
+        php ./vendor/bin/phinx seed:run
+    # - name: PHPUnit
+    #   run: php ./vendor/bin/phpunit
     - name: Run PHP CodeSniffer
       run: php ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
   win-build:
@@ -42,11 +43,11 @@ jobs:
     strategy:
       matrix:
         operating-system: ['windows-latest']
-        php-versions: ['8.0']
+        php-versions: ['8.1']
         phpunit-versions: ['latest']
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -60,10 +61,11 @@ jobs:
       run: composer install --no-progress --no-suggest
     - name: Run Migration
       run: |
-        $Env:PHINX_ENVIRONMENT = "development"
+        $Env:PHINX_ENVIRONMENT = "testing"
         Remove-Item configs/database.php
         Copy-Item configs/database.php.test configs/database.php
         php ./vendor/bin/phinx migrate
+        php ./vendor/bin/phinx seed:run
     - name: Run PHP CodeSniffer
       run: php ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
 
