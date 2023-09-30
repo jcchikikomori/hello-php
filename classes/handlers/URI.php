@@ -74,16 +74,15 @@ class URI
         // }
 
         // Tentative move
+        // TODO: Move all of these to /controllers dir
         if ($request_uri === "/") {
-            $this->app->messages[] = "Home Page";
-            include_once($this->app->getBaseDir() . "index.php");
-            $this->processed = false;
+            // $this->app->messages[] = "Home Page";
+            include_once($this->app->getBaseDir() . "home.php");
+            $this->processed = true;
         } elseif ($request_uri === "/forgotpassword") {
-            $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "forgotpassword.php");
             $this->processed = true;
         } elseif ($request_uri === "/register") {
-            $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "register.php");
             $this->processed = true;
         } elseif ($request_uri === "/multiuser") {
@@ -91,7 +90,6 @@ class URI
             include_once($this->app->getBaseDir() . "multiuser.php");
             $this->processed = true;
         } elseif ($request_uri === "/logout") {
-            $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "logout.php");
             $this->processed = true;
         } else {
