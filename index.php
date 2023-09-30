@@ -16,10 +16,8 @@ require_once "classes/handlers/URI.php";
 // Implement URI handling along with the specified context
 $URI = new classes\handlers\URI(new classes\Auth());
 $context = $URI->getContext();
-
-if ($URI->isClassProcessed()) {
-    exit();
-}
+// Exit the process already
+if ($URI->isClassProcessed()) { exit(); }
 
 // collect response from Auth constructor
 // Note: Auth was extended from App class so we can call functions from the App class

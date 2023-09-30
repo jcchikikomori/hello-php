@@ -77,7 +77,7 @@ class URI
         if ($request_uri === "/") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "index.php");
-            $this->processed = true;
+            $this->processed = false;
         } elseif ($request_uri === "/forgotpassword") {
             $this->app->messages[] = "Home Page";
             include_once($this->app->getBaseDir() . "forgotpassword.php");
