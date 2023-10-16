@@ -13,12 +13,15 @@
  * @link     https://github.com/jcchikikomori/hello-php
  */
 
+namespace controllers;
+
 require_once "classes/App.php";
 require_once "classes/Auth.php";
 require_once "classes/Registration.php";
 require_once "classes/concerns/RememberMe.php";
+require_once "classes/handlers/URI.php";
 
-$context = new classes\Registration();
+$context = new \classes\Registration();
 
 // Now put your data here and include in render()
 $data = ['user_types' => $context->getUserTypes()];

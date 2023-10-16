@@ -16,7 +16,6 @@ namespace libraries;
  */
 class Pagination
 {
-
     public $id;     //page id from GET or POST (untested)
     public $start;  //starting line (NOTE: This is different to page id)
     public $limit;  //item limit each page

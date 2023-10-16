@@ -45,8 +45,7 @@ class Helper
 
     /**
      * Display Messages
-     * TODO: Expose Global Variables for layouts
-     * TODO: Use app context instead
+     * @return void
      */
     public static function getFeedback()
     {
@@ -56,10 +55,7 @@ class Helper
             if (!empty($obj['messages'])) {
                 $data = array("_notification_messages" => $obj['messages']);
                 $file = "templates/partials/notification";
-                // TODO: Report this error if context doesn't exists
-                if (isset($GLOBALS["context"])) {
-                    $GLOBALS["context"]->render_partial($file, $data);
-                }
+                Renderer::render_partial($file, $data);
             }
         }
         Session::destroy('response');

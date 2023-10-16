@@ -37,7 +37,7 @@ jobs:
     # - name: PHPUnit
     #   run: php ./vendor/bin/phpunit
     - name: Run PHP CodeSniffer
-      run: php ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
+      run: composer run-script lint
   win-build:
     runs-on: ${{ matrix.operating-system }}
     strategy:
@@ -67,5 +67,5 @@ jobs:
         php ./vendor/bin/phinx migrate
         php ./vendor/bin/phinx seed:run
     - name: Run PHP CodeSniffer
-      run: php ./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multi_user.php register.php
+      run: composer run-script lint
 

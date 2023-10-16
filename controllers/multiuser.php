@@ -14,14 +14,17 @@
  * @link     https://github.com/jcchikikomori/hello-php
  */
 
+namespace controllers;
+
 // Core components first such as main classes then load dependencies
 // then Instantiate the class to use it
 require_once "classes/App.php";
 require_once "classes/Auth.php";
 require_once "classes/concerns/RememberMe.php";
+require_once "classes/handlers/URI.php";
 
 // load the auth class then instantiate again
-$context = new classes\Auth();
+$context = new \classes\Auth();
 
 // either multi-user login or switch user (requires multi-user too)
 if (

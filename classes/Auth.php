@@ -378,7 +378,7 @@ class Auth extends App
             // If invalid
             if (!$user) {
                 // Redirect
-                header("Location: " . DIRECTORY_SEPARATOR . "index.php?logout");
+                header("Location: " . DIRECTORY_SEPARATOR . "?logout");
                 die();
             }
         }
@@ -458,7 +458,7 @@ class Auth extends App
             $result = $query->fetch(); // overwrite for now
             $datetime = new DateTime($result['created']);
             $timestamp_from_query = $datetime->format("U");
-            var_dump($timestamp_from_query);
+            // \libraries\Debugger::dump($timestamp_from_query);
             if (($result['code'] == $reset_code) && ($timestamp_from_query > $timestamp_one_hour_ago)) {
                 $this->messages[] = "Verified. Please reset your password now.";
                 $this->status = "success";

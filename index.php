@@ -3,27 +3,22 @@
 /**
  * hello-php by jcchikikomori
  *
+ * DO NOT MAKE ANY CHANGES HERE UNLESS NECESSARY AND PEER REVIEW IS A MUST
+ *
  * @link https://github.com/jcchikikomori/hello-php
  * @license http://opensource.org/licenses/MIT MIT License
  */
 
 // load required files
 require_once "classes/App.php";
-require_once "classes/Auth.php";
 require_once "classes/concerns/RememberMe.php";
-// create a global context (variable)
-$context = new classes\Auth();
+require_once "classes/handlers/URI.php";
 
-// collect response from Auth constructor
-// Note: Auth was extended from App class so we can call functions from the App class
-$context->collectResponse(array($context));
-// if user logged in (using Auth class)
-if ($context->isUserLoggedIn()) {
-    // put data here using App's render()
-    // put "auth" to show $auth on output, otherwise undefined
-    $context->render("templates/partials/logged_in");
-}
-// not logged in
-elseif (!$context->isUserLoggedIn()) {
-    $context->render("templates/partials/login_form");
+// Implement URI handling along with the specified context
+$URI = new classes\handlers\URI(new classes\App());
+$context = $URI->getContext();
+
+// Exit the process already
+if ($URI->isClassProcessed()) {
+    exit();
 }

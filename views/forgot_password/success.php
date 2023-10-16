@@ -8,7 +8,7 @@
                 </p>
             </div>
             <div class="card-body">
-                <form method="post" action="forgotpassword.php?resetnewpassword" name="reset_new_password_form" class="box">
+                <form method="post" action="/forgotpassword?resetnewpassword" name="reset_new_password_form" class="box">
                     <?php
                     // show potential errors / feedback (from session)
                     libraries\Helper::getFeedback();
@@ -33,7 +33,7 @@
                     <!-- Change this to a button or input when using this as a form -->
                     <input type="submit" class="button is-primary is-fullwidth" name="reset_new_password" value="Reset My Password" />
                     <!-- <hr />
-                    <div class="buttons are-small">
+                    <div class="buttons">
                         <a href="/" class="button is-danger is-fullwidth">Go back to home</a>
                     </div> -->
                 </form>
