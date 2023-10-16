@@ -2,7 +2,7 @@
 
 <?php
     // show potential errors / feedback (from session)
-    // libraries\Helper::getFeedback();
+    libraries\Helper::getFeedback();
 ?>
 <?php
     // Using Session library

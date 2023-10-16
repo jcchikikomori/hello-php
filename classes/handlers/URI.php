@@ -45,6 +45,9 @@ class URI
         // Reuse the application
         $this->app = $app;
 
+        // Establishing up global context
+        $GLOBALS["context"] = $app;
+
         // Get the current URI without query parameters
         $request_uri = strtok($_SERVER['REQUEST_URI'], '?');
         // Tentative condition

@@ -21,6 +21,7 @@ use classes\handlers\URI as URI;
 use PDO; // from PHP
 use libraries\Session as Session;
 use libraries\Helper as Helper;
+use libraries\Renderer as Renderer;
 use Medoo\Medoo;
 
 /**
@@ -52,7 +53,7 @@ class App
      */
     public $db_connection;
     /**
-     * @var Whoops object
+     * @var \Whoops object
      */
     public $whoops = null;
     /**
@@ -328,28 +329,14 @@ class App
             $data["switch_user_requested"] = $this->switch_user_requested;
             // Extract array keys into variables
             extract($data);
-            // If layout was activated (default)
             if ($this->isLayouts()) {
-                // include $this->header_path;
-                // include $this->footer_path;
+                // If layout was activated (default)
                 include $this->layout_file;
             } else {
                 // Extract without layout
-                $this->render_partial($part);
+                Renderer::render_partial($part);
             }
         }
-    }
-
-    /**
-     * Render partial file wihout checking layout switch
-     * Note: Extracting arrays into variables are contained each view
-     *
-     * @param string $part = Partial view
-     */
-    public function render_partial($part, $data = array())
-    {
-        extract($data);
-        include $this->views_path . $part . '.php';
     }
 
     /**
@@ -484,6 +471,15 @@ class App
     public function getControllersDir()
     {
         return $this->controllers_path;
+    }
+
+    /**
+     * Summary of getViewsPath
+     * @return string
+     */
+    public function getViewsPath()
+    {
+        return $this->views_path;
     }
 
     /**
