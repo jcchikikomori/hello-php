@@ -1,1 +1,3 @@
-<?php xdebug_info(); ?>
+<?php
+
+xdebug_info();

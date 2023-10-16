@@ -32,10 +32,17 @@
         "post-autoload-dump": [
             "php -r \"file_exists('configs/system.php') || copy('configs/system.php.example', 'configs/system.php');\"",
             "php -r \"file_exists('configs/database.php') || copy('configs/database.php.example', 'configs/database.php');\"",
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "composer run nodejs"
         ],
         "lint": [
-            "./vendor/bin/phpcs classes libraries error.php forgotpassword.php index.php multiuser.php register.php"
+            "./vendor/bin/phpcs classes/ libraries/ *.php"
+        ],
+        "lintfix": [
+            "./vendor/bin/phpcbf classes/ libraries/ *.php"
+        ],
+        "nodejs": [
+            "npm install"
         ]
     }
 }
