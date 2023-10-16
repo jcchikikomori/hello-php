@@ -36,10 +36,10 @@
             "composer run nodejs"
         ],
         "lint": [
-            "./vendor/bin/phpcs classes/ libraries/ *.php"
+            "./vendor/bin/phpcs classes/ controllers/ libraries/"
         ],
         "lintfix": [
-            "./vendor/bin/phpcbf classes/ libraries/ *.php"
+            "./vendor/bin/phpcbf classes/ controllers/ libraries/"
         ],
         "nodejs": [
             "npm install"

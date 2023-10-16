@@ -6,9 +6,9 @@ use Exception;
 
 /**
  * Renderer
- * 
+ *
  * PHP Version 7.2
- * 
+ *
  * @category Renderer
  * @package  hello-php
  * @author   John Cyrill Corsanes <jccorsanes@protonmail.com>
@@ -32,5 +32,5 @@ class Renderer
         } else {
             throw new Exception("Unable to locate the context.");
         }
-    }    
+    }
 }

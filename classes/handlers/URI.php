@@ -44,61 +44,43 @@ class URI
     {
         // Reuse the application
         $this->app = $app;
-
         // Establishing up global context
         $GLOBALS["context"] = $app;
-
         // Get the current URI without query parameters
         $request_uri = strtok($_SERVER['REQUEST_URI'], '?');
+        // Define a base directory for your PHP files
+        $controller_dir = $this->app->getControllersDir();
+
         // Tentative condition
-        // if ($request_uri == DIRECTORY_SEPARATOR && $request_uri !== "/index.php" &&
-        //     isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'], '?') !== false) {
-
-        // if ($request_uri !== "/" &&
-        //     isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'], '?') !== false) {
-        //     // Remove leading and trailing slashes, if any
-        //     $request_uri = strtolower(trim($request_uri, DIRECTORY_SEPARATOR));
-        //     // echo var_dump($request_uri);
-        //     // Define a base directory for your PHP files
-        //     $controller_dir = $this->app->getControllersDir();
-        //     // Construct the full path to the PHP file based on the URI
-        //     $file_path = $controller_dir . DIRECTORY_SEPARATOR . $request_uri . '.php';
-        //     // Check if the file exists
-        //     if (file_exists($file_path)) {
-        //         $this->app->messages[] = "File exists";
-        //     } else {
-        //         // Page not found, return a 404 response
-        //         // pageNotFound();
-        //         header("HTTP/1.0 404 Not Found");
-        //         echo "404 Page Not Found";
-        //         exit(0);
-        //     }
-        // } else {
-        // }
-
-        // Tentative move
-        // TODO: Move all of these to /controllers dir
-        if ($request_uri === "/") {
-            // $this->app->messages[] = "Home Page";
-            include_once($this->app->getBaseDir() . "home.php");
-            $this->processed = true;
-        } elseif ($request_uri === "/forgotpassword") {
-            include_once($this->app->getBaseDir() . "forgotpassword.php");
-            $this->processed = true;
-        } elseif ($request_uri === "/register") {
-            include_once($this->app->getBaseDir() . "register.php");
-            $this->processed = true;
-        } elseif ($request_uri === "/multiuser") {
-            $this->app->messages[] = "Home Page";
-            include_once($this->app->getBaseDir() . "multiuser.php");
-            $this->processed = true;
-        } elseif ($request_uri === "/logout") {
-            include_once($this->app->getBaseDir() . "logout.php");
-            $this->processed = true;
+        // var_dump($request_uri);
+        if ($request_uri == DIRECTORY_SEPARATOR) {
+            $file_path = $controller_dir . 'home.php';
+            // Check if the file exists
+            // var_dump($file_path);
+            if (file_exists($file_path)) {
+                // $this->app->messages[] = "File exists";
+                require_once($file_path);
+            } else {
+                // Page not found, return a 404 response
+                $this->pageNotFound();
+            }
+        } elseif ($request_uri !== DIRECTORY_SEPARATOR) {
+            // Remove leading and trailing slashes, if any
+            $request_uri = strtolower(trim($request_uri, DIRECTORY_SEPARATOR));
+            // echo var_dump($request_uri);
+            // Construct the full path to the PHP file based on the URI
+            $file_path = $controller_dir . $request_uri . '.php';
+            // Check if the file exists
+            // var_dump($file_path);
+            if (file_exists($file_path)) {
+                // $this->app->messages[] = "File exists";
+                require_once($file_path);
+            } else {
+                // Page not found, return a 404 response
+                $this->pageNotFound();
+            }
         } else {
-            header("HTTP/1.0 404 Not Found");
-            echo "404 Page Not Found";
-            exit();
+            header("Location: " . DIRECTORY_SEPARATOR);
         }
     }
 
@@ -110,5 +92,12 @@ class URI
     public function isClassProcessed()
     {
         return $this->processed;
+    }
+
+    private function pageNotFound()
+    {
+        header("HTTP/1.0 404 Not Found");
+        echo "404 Page Not Found";
+        exit(0);
     }
 }

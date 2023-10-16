@@ -1,9 +1,7 @@
 <?php
 
-namespace controllers;
-
 /**
- * The Application's Home Controller
+ * The Application's Home Page or Root Directory
  *
  * PHP version 8.1
  *
@@ -15,10 +13,25 @@ namespace controllers;
  * @link     https://github.com/jcchikikomori/hello-php
  */
 
-class Home
-{
-    public function __construct()
-    {
-        echo "Coming Soon!";
-    }
+namespace controllers;
+
+require_once "classes/App.php";
+require_once "classes/Auth.php";
+require_once "classes/concerns/RememberMe.php";
+require_once "classes/handlers/URI.php";
+
+$context = new \classes\Auth();
+
+// collect response from Auth constructor
+// Note: Auth was extended from App class so we can call functions from the App class
+$context->collectResponse(array($context));
+// if user logged in (using Auth class)
+if ($context->isUserLoggedIn()) {
+    // put data here using App's render()
+    // put "auth" to show $auth on output, otherwise undefined
+    $context->render("templates/partials/logged_in");
+}
+// not logged in
+elseif (!$context->isUserLoggedIn()) {
+    $context->render("templates/partials/login_form");
 }
